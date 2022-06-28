@@ -7,6 +7,8 @@ class ItemsHandler {
     getSearchItems({searchQuery}) {
         
         // will send in the request
+        // {searchQuery: "query"}
+        
         // searchQuery
         // maybe we will add some other data related to authenticated user
 
@@ -38,6 +40,10 @@ class ItemsHandler {
         return items;
     }
     getCategorizedItems({category}) {
+
+        // send something
+        // {category: "something"}
+
         console.log(category)
         let items =  [
             {
