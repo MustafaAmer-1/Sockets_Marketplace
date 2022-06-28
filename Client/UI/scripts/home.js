@@ -38,9 +38,8 @@ function showItems(items) {
                     <span class="num">0</span>
                     <span class="plus" onclick="incrementQty(this)">+</span>
                 </div>
-                <p class="cartbtn"><a href="items.html">
-                    <button onclick="onclick="addCartEvent(this)">Add to cart</button>
-                </a>
+                <p class="cartbtn">
+                    <button onclick="addCartEvent(this)">Add to cart</button>
                 </p>
             </div>
         `
@@ -68,12 +67,11 @@ function incrementQty(e) {
 }
 
 function decrementQty(e) {
-    console.log(e)
     let sibling = findSiblingWithClassName(e, 'num')
     let qty = parseInt(sibling.innerHTML)
     if(qty > 0)
         sibling.innerHTML = qty - 1
-        
+
 }
 
 function HandleTagClick(e) {
@@ -94,20 +92,23 @@ function searchFor(e) {
 }
 
 function addCartEvent(e) {
-    itemNode = e.parentNode
+    itemNode = e.parentNode.parentNode
     itemData = {
         id: itemNode.dataset.id,
     }
     for(let i = 0; i < itemNode.children.length; ++i) {
-        if(itemNode.children[i].tagName == 'IMG')
-            itemData.image = itemNode.children[i].getAttribute('src')
-        else if(itemNode.children[i].tagName == 'H1')
+        
+        if(itemNode.children[i].tagName == 'H1')
             itemData.name = itemNode.children[i].innerHTML
         else if(itemNode.children[i].classList.contains('price'))
             itemData.price = itemNode.children[i].innerHTML.substring(1)
+        else if(itemNode.children[i].classList.contains('qty')) {
+            itemData.quantity = parseInt(itemNode.children[i].querySelector('.num').innerHTML)
+            itemData.maxqty = itemNode.children[i].dataset.maxqty
+        }
     }
-
-    cartHandler.addItem(itemData)
+    if(itemData.quantity == 0) alert('Please add an item')
+    else cartHandler.addItem(itemData)
 }
 function startUp() {
     
@@ -128,7 +129,6 @@ function startUp() {
     searchButton.addEventListener('click', searchFor)
 
     showItems(itemsHandler.getCategorizedItems({category: 'home'}))
-
     
 }
 

@@ -53,27 +53,10 @@
 		<div class="form-style-3">
 			
 <table>
-	<tr>
-	  <th>Name</th>
-	  <th>Price</th>
-	  <th>Quantity</th>
-	  <th>Remove</th>
-	</tr>
-	<tr>
-	  <td>Alfreds Futterkiste</td>
-	  <td>Maria Anders</td>
-	  <td><div  id="idd" class="qty">
-		<span class="minus">-</span>
-		<span class="num">0</span>
-		<span class="plus">+</span>
-	</div></td>
-	  <td><button id="d_btn1" class="dlt">Delete</button></td>
-	</tr>
-	</div></td>
 
-	
-	
-  </table>
+
+
+</table>
 
   	<button class="cbtn" id="checkout">
 		Checkout
@@ -98,7 +81,7 @@
 		a = (a < 10) ? "0" + a : a;
 		num[1].innerText = a;
 	});
-	
+
 	minus[0].addEventListener("click", () => {
 		if (a > 1) {
 			a--;
@@ -116,5 +99,8 @@
 	});
 	</script>
 		<script src="scripts/main.js"></script>
+		<script src="../../Lib/nedb.min.js"></script>
+		<script src="../../DataHandler/CartHandler.js"></script>
+		<script src="../scripts/cart.js"></script>
 	</body>
 </html>
