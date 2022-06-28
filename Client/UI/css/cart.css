@@ -1,9 +1,38 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
 body {
   margin: 0;
   min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
 }
 
+.cbtn{
+  background-color: rgb(0, 0, 0); 
+  font-family: 'Montserrat', sans-serif;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  height: 40px;
+  width: 200px;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.dlt{
+  background-color: rgb(212, 35, 35); 
+  font-family: 'Montserrat', sans-serif;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  height: 40px;
+  width: 80px;
+  margin: auto;
+}
 
 
 
@@ -30,6 +59,7 @@ li a {
   font-family: 'Montserrat', sans-serif;
   height: auto;
   padding: 20px 12px 10px 20px;
+  text-align: center;
   margin: auto;
   margin-top: 2%;
   padding: 20px;
@@ -42,7 +72,7 @@ li a {
   border-radius: 2.25rem;
 }
 table {
-  font-family: arial, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
@@ -55,6 +85,10 @@ td, th {
 
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+
+td:nth-child(4){
+  text-align: center;
 }
 
 
