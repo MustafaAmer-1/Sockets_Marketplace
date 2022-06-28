@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../css/home.css">
+	<title>Dashboard</title>	
+</head>
+
+<body>
+	<div class="home-page">
+		<div class="topnav">
+			<img src="trolilogo.jpg">
+
+			<div class="search-container">
+				<form>
+					<input type="text" placeholder="Search...." name="search">
+					<button type="submit"><i class="fa fa-search"></i></button>
+				</form>
+			</div>
+			<div class=right-menu>
+				<div class="dropdown">
+					<button class="dropbtn" onclick="myFunction()">MyAccount
+						<i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content" id="myDropdown">
+						<a href="userinfo.html">User info</a>
+						<a href="manage-credit.html">Manage credit</a>
+
+					</div>
+				</div>
+				<a href="login.html">Logout</a>
+			</div>
+		</div>
+		<div class="categories">
+			<ul>
+				<li><a class="active" href="home.html">Home</a></li>
+				<li><a href="#electronics">Electronics</a></li>
+				<li><a href="#clothes">Clothes</a></li>
+				<li><a href="#health">Health</a></li>
+				<li><a href="#skincare">Skincare</a></li>
+				<li><a href="#entertainment">Entertainment</a></li>
+				<li><a href="#food">Food</a></li>
+			</ul>
+			<br>
+
+		</div>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<div class="slideshow-container">
+
+			<div class="mySlides fade">
+				<div class="numbertext">1 / 3</div>
+				<img src="pic2.gif" style="width:100%">
+
+			</div>
+
+			<div class="mySlides fade">
+				<div class="numbertext">2 / 3</div>
+				<img src="pic3.png" style="width:100%">
+
+			</div>
+
+			<div class="mySlides fade">
+				<div class="numbertext">3 / 3</div>
+				<img src="pic4.png" style="width:100%">
+
+			</div>
+
+		</div>
+		<br>
+
+		<div style="text-align:center">
+			<span class="dot"></span>
+			<span class="dot"></span>
+			<span class="dot"></span>
+		</div>
+		<br>
+
+		<div class="products-container">
+			<div class="pro">
+				<img src="p1.jpg">
+				<h1>Tailored Jeans</h1>
+				<p class="price">$19.99</p>
+				<div class="qty">
+					<span class="minus">-</span>
+					<span class="num">0</span>
+					<span class="plus">+</span>
+				</div>
+				<p class="cartbtn"><a href="items.html">
+					<button>Add to cart</button>
+				</a>
+			</p>
+			</div>
+		</div>
+		<script src="scripts/main.js"></script>
+	</div>
+</body>
+
+</html>
