@@ -12,10 +12,8 @@
 			<img src="trolilogo.jpg">
 
 			<div class="search-container">
-				<form>
-					<input type="text" placeholder="Search...." name="search">
-					<button type="submit"><i class="fa fa-search"></i></button>
-				</form>
+					<input type="text" id="searchInput" placeholder="Search...." name="search">
+					<button id="searchButton"><i class="fa fa-search"></i></button>
 			</div>
 			<div class=right-menu>
 				<div class="dropdown">
@@ -33,13 +31,13 @@
 		</div>
 		<div class="categories">
 			<ul>
-				<li><a class="active" href="home.html">Home</a></li>
-				<li><a href="#electronics">Electronics</a></li>
-				<li><a href="#clothes">Clothes</a></li>
-				<li><a href="#health">Health</a></li>
-				<li><a href="#skincare">Skincare</a></li>
-				<li><a href="#entertainment">Entertainment</a></li>
-				<li><a href="#food">Food</a></li>
+				<li><a class="tag active" id="home" href="#home">Home</a></li>
+				<li><a class="tag" name="electronics" href="#electronics">Electronics</a></li>
+				<li><a class="tag" name="clothes" href="#clothes">Clothes</a></li>
+				<li><a class="tag" name="health" href="#health">Health</a></li>
+				<li><a class="tag" name="skincare" href="#skincare">Skincare</a></li>
+				<li><a class="tag" name="entertainment" href="#entertainment">Entertainment</a></li>
+				<li><a class="tag" name="food" href="#food">Food</a></li>
 			</ul>
 			<br>
 
@@ -92,6 +90,8 @@
 			</div>
 		</div>
 		<script src="scripts/main.js"></script>
+		<script src="../../DataHandler/ItemsHandler.js"></script>
+		<script src="../scripts/home.js"></script>
 	</div>
 </body>
 
