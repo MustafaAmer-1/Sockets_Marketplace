@@ -8,7 +8,8 @@ class LoginHandler {
         //    "email": "dgbejbg",
         //    "psw": "kwfwnefn"
         //    }
-        // return true if logged in otherwise false
+        // return {status: true} if logged in otherwise false
+        // or {status: false, err: "somehting"}
         return true;
     }
 }
