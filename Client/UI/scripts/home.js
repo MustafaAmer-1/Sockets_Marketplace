@@ -7,6 +7,10 @@ let searchInput;
 let cartHandler;
 let addCartButtons;
 
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
 function changeActiveElement(element) {
     if(currentActiveCategory) currentActiveCategory.classList.remove("active")
     currentActiveCategory = element;
