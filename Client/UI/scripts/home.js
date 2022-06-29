@@ -14,23 +14,13 @@ function changeActiveElement(element) {
 }
 
 function showItems(items) {
+    console.log(items)
     itemsNodes = []
-
     items.forEach(item => {
         
-        // let node = `
-        //     <div class="pro" data-id=${item.id}>
-        //         <img src="${item.image}">
-        //         <h1>${item.name}</h1>
-        //         <p class="price">$${item.price}</p>
-        //         <p class="cartbtn" onclick="addCartEvent(this)"><button>Add to Cart</button></p>
-        //     </div>
-            
-        // `
-
         let node = `
             <div class="pro" data-id=${item.id}>
-                <img src="${item.image}">
+                <img src="data:image/webp;base64,${item.image}">
                 <h1>${item.name}</h1>
                 <p class="price">$${item.price}</p>
                 <div class="qty" data-maxqty=${item.quantity}>
@@ -77,16 +67,14 @@ function decrementQty(e) {
 function HandleTagClick(e) {
     let element = e.target;
     changeActiveElement(element);
-    let items = itemsHandler.getCategorizedItems({category: element.name})
-    showItems(items)
+    itemsHandler.getCategorizedItems({category: element.name}, showItems)
 }
 
 function searchFor(e) {
     let input = searchInput.value
     console.log(input)
 
-    items = itemsHandler.getSearchItems({ searchQuery: input })
-    showItems(items)
+    itemsHandler.getSearchItems({ searchQuery: input }, showItems)
     searchInput.value = ''
 
 }
@@ -128,7 +116,7 @@ function startUp() {
 
     searchButton.addEventListener('click', searchFor)
 
-    showItems(itemsHandler.getCategorizedItems({category: 'home'}))
+    itemsHandler.getCategorizedItems({category: 'home'}, showItems)
     
 }
 

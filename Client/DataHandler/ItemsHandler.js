@@ -2,9 +2,8 @@ class ItemsHandler {
     // Images are expected to be in base64 encoding 
 
     constructor() {
-
     }
-    getSearchItems({searchQuery}) {
+    getSearchItems({searchQuery}, callback) {
         
         // will send in the request
         // {searchQuery: "query"}
@@ -35,10 +34,9 @@ class ItemsHandler {
                 quantity: 2
             },    
         ]
-        this.correctImageUrl(items)
-        return items;
+        callback(items)
     }
-    getCategorizedItems({category}) {
+    getCategorizedItems({category}, callback) {
 
         // send something
         // {category: "something"}
@@ -82,16 +80,9 @@ class ItemsHandler {
                 quantity: 20
             }
         ]
-        
-        this.correctImageUrl(items)
-        return items
+
+        callback(items)
     }
 
-    // Helpers
-    correctImageUrl(items) {
-        items.forEach( (item, index, array) => {
-            array[index].image = "data:image/webp;base64," + item.image
-        });
-    }
 }
 
