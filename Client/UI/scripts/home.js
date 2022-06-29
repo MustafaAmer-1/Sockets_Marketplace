@@ -138,23 +138,6 @@ function startUp() {
     ProductContainer = document.querySelector('.products-container')
     searchInput = document.getElementById('searchInput')
     addCartButtons = document.getElementsByClassName('.cartBtn')
-<<<<<<< Updated upstream
-
-    itemsHandler = new ItemsHandler();
-    cartHandler = new CartHandler()
-
-    tagList.forEach(tag => {
-        tag.addEventListener('click', HandleTagClick)
-    });
-
-    searchButton.addEventListener('click', searchFor)
-
-    itemsHandler.getItems({
-        filter: 'all',
-        query: '*'
-    }, showItems)
-
-=======
     
     loginHandler = new LoginHandler()
     logoutBtn.addEventListener('click', logoutButtonEvent)
@@ -181,7 +164,6 @@ function startUp() {
     } else {
         searchButton.addEventListener('click', otherSearchEvent)
     }
->>>>>>> Stashed changes
 }
 
 startUp();
