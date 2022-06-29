@@ -18,10 +18,8 @@
 			<img src="trolilogo.jpg">
 
 			<div class="search-container">
-				<form>
-					<input type="text" placeholder="What are you looking for ...." name="search">
-					<button type="submit"><i class="fa fa-search"></i></button>
-				</form>
+					<input type="text" id="searchInput" placeholder="What are you looking for ...." name="search">
+					<button id="searchButton"><i class="fa fa-search"></i></button>
 			</div>
 			<div class=right-menu>
 				<div class="dropdown">
@@ -34,18 +32,18 @@
 						<a href="cart.html">My Cart</a>
 					</div>
 				</div>
-				<a href="login.html">Logout</a>
+				<a id="logout">Logout</a>
 			</div>
 		</div>
 		<div class="categories">
 			<ul>
-				<li><a class="active" href="home.html">Home</a></li>
-				<li><a href="#electronics">Electronics</a></li>
-				<li><a href="#clothes">Clothes</a></li>
-				<li><a href="#health">Health</a></li>
-				<li><a href="#skincare">Skincare</a></li>
-				<li><a href="#entertainment">Entertainment</a></li>
-				<li><a href="#food">Food</a></li>
+				<li><a  href="home.html">Home</a></li>
+				<li><a href="home.html#electronics">Electronics</a></li>
+				<li><a href="home.html#clothes">Clothes</a></li>
+				<li><a href="home.html#health">Health</a></li>
+				<li><a href="home.html#skincare">Skincare</a></li>
+				<li><a href="home.html#entertainment">Entertainment</a></li>
+				<li><a href="home.html#food">Food</a></li>
 			</ul>
 			<br>
 
@@ -68,43 +66,12 @@
 	function myFunction() {
     	document.getElementById("myDropdown").classList.toggle("show");
 	}
-	const plus = document.querySelectorAll(".plus"),
-		minus = document.querySelectorAll(".minus"),
-		num = document.querySelectorAll(".num");
-	let a = 1;
-
-	
-	plus[0].addEventListener("click", () => {
-		
-		a++;
-		a = (a < 10) ? "0" + a : a;
-		num[0].innerText = a;
-	});
-	plus[1].addEventListener("click", () => {
-		
-		a++;
-		a = (a < 10) ? "0" + a : a;
-		num[1].innerText = a;
-	});
-
-	minus[0].addEventListener("click", () => {
-		if (a > 1) {
-			a--;
-			a = (a < 10) ? "0" + a : a;
-			num[0].innerText = a;
-		}
-	});
-	minus[1].addEventListener("click", () => {
-		if (a > 1) {
-			a--;
-			a = (a < 10) ? "0" + a : a;
-			num[1].innerText = a;
-		}
-	});
 	</script>
-		<script src="scripts/main.js"></script>
-		<script src="../../Lib/nedb.min.js"></script>
+		<!-- <script src="scripts/main.js"></script> -->
+		<script src="../../Lib/nedb.min.js"></script>		
+		<script src="../../DataHandler/LoginHandler.js"></script>
 		<script src="../../DataHandler/CartHandler.js"></script>
 		<script src="../scripts/cart.js"></script>
+		<script src="../scripts/home.js"></script>
 	</body>
 </html>

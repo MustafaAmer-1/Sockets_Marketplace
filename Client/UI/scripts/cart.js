@@ -1,13 +1,13 @@
 
 
 let tableItems;
-let cartHandler;
+let cartHandlerC;
 let checkoutBtn;
 
 function deleteFromCart(e) {
     let row = e.closest('tr')
     let id = row.dataset.id
-    cartHandler.deleteCartItem(id)
+    cartHandlerC.deleteCartItem(id)
     row.remove()
 }
 function populateTable(docs) {
@@ -67,12 +67,12 @@ function clearTable() {
     tableItems.append(firstElement)
 }
 function placeOrder(e) {
-    cartHandler.placeOrder(clearTable)
+    cartHandlerC.placeOrder(clearTable)
 }
 function startUp() {
     tableItems = document.querySelector('table')
-    cartHandler = new CartHandler()
-    cartHandler.getCartItemsCallback(populateTable)
+    cartHandlerC = new CartHandler()
+    cartHandlerC.getCartItemsCallback(populateTable)
     checkoutBtn = document.getElementById('checkout')
     checkoutBtn.addEventListener('click', placeOrder)
 }

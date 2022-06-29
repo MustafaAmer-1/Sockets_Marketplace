@@ -5,7 +5,9 @@ let searchButton;
 let searchInput;
 let cartHandler;
 let addCartButtons;
-
+let logoutBtn;
+let loginHandler;
+let url;
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
@@ -70,10 +72,17 @@ function decrementQty(e) {
 function HandleTagClick(e) {
     let element = e.target;
     changeActiveElement(element);
-    itemsHandler.getItems({
-        filter: 'category',
-        query: element.name
-    }, showItems)
+    if(!element.name || element.name == 'home') {
+        itemsHandler.getItems({
+            filter: 'all',
+            query: '*'
+        }, showItems)
+    } else {
+        itemsHandler.getItems({
+            filter: 'category',
+            query: element.name
+        }, showItems)
+    }
 }
 
 function searchFor(e) {
@@ -107,14 +116,29 @@ function addCartEvent(e) {
     else cartHandler.addItem(itemData)
 }
 
+function logoutCallBack() {
+    console.log('Logged out successfully')
+}
+function logoutButtonEvent(e) {
+    loginHandler.logout(logoutCallBack)
+}
+
+function otherSearchEvent(e) {
+    let val = searchInput.value
+    url.searchParams.append('searchQ', val)
+    document.location.href = `home.html?searchQ=${val}`
+}
+
 function startUp() {
 
     currentActiveCategory = document.getElementById("home")
     tagList = document.querySelectorAll('.tag')
+    logoutBtn = document.getElementById('logout')
     searchButton = document.getElementById('searchButton')
     ProductContainer = document.querySelector('.products-container')
     searchInput = document.getElementById('searchInput')
     addCartButtons = document.getElementsByClassName('.cartBtn')
+<<<<<<< Updated upstream
 
     itemsHandler = new ItemsHandler();
     cartHandler = new CartHandler()
@@ -130,6 +154,34 @@ function startUp() {
         query: '*'
     }, showItems)
 
+=======
+    
+    loginHandler = new LoginHandler()
+    logoutBtn.addEventListener('click', logoutButtonEvent)
+
+    url = new URL(window.location)
+    console.log(url)
+    if(ProductContainer) {
+        
+        itemsHandler = new ItemsHandler();
+        cartHandler = new CartHandler()
+        tagList.forEach(tag => {
+            tag.addEventListener('click', HandleTagClick)
+        });
+        searchButton.addEventListener('click', searchFor)
+        
+        let hash = url.hash.substring(1)
+        let searchParam = url.searchParams.get('searchQ')
+        if(searchParam) {
+            searchInput.value = searchParam
+            searchFor()
+        }
+        else document.getElementsByName((hash) ? hash: 'home')[0].click()
+        
+    } else {
+        searchButton.addEventListener('click', otherSearchEvent)
+    }
+>>>>>>> Stashed changes
 }
 
 startUp();
