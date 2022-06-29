@@ -1,6 +1,6 @@
 class RegisterHandler {
 
-    register(userInfo) {
+    register(userInfo, callback) {
 
         // userInfo Example 
         //{ username: "jewbgjew", email: "kwgne", psw: "wejggle", age: "22", gender: "Male", phone: "33" }
@@ -10,6 +10,6 @@ class RegisterHandler {
         // or
         // {status: false, err: " gge "}
         console.log(userInfo)
-        return true
+        callback({status: true})
     }
 }

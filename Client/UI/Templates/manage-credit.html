@@ -30,6 +30,7 @@
                     <div class="dropdown-content" id="myDropdown">
                         <a href="userinfo.html">User info</a>
                         <a href="manage-credit.html">Manage credit</a>
+                        <a href="cart.html">My Cart</a>
                     </div>
                 </div>
                 <a href="login.html">Logout</a>
@@ -39,12 +40,12 @@
         <div class="categories">
             <ul>
                 <li><a class="active" href="home.html">Home</a></li>
-                <li><a href="#contact">Electronics</a></li>
-                <li><a href="#about">Clothes</a></li>
-                <li><a href="#contact">Health</a></li>
-                <li><a href="#about">Skincare</a></li>
-                <li><a href="#contact">Entertainment</a></li>
-                <li><a href="#about">Food</a></li>
+                <li><a href="#electronics">Electronics</a></li>
+                <li><a href="#clothes">Clothes</a></li>
+                <li><a href="#health">Health</a></li>
+                <li><a href="#skincare">Skincare</a></li>
+                <li><a href="#entertainment">Entertainment</a></li>
+                <li><a href="#food">Food</a></li>
             </ul>
             <br />
         </div>
@@ -56,7 +57,7 @@
             </div>
             <div class="info3">
                 <form action="" method="post">
-                    <label for="field1"><span>Current balance</span><input type="text" class="input-field" name="field1"
+                    <label for="balance"><span>Current balance</span><input type="text" class="input-field" name="balance"
                             value="" readonly /></label>
 
                     <button onclick="getConfirmationfordeposit();" class="button button1">
@@ -71,6 +72,9 @@
             </div>
         </div>
     </div>
+    <script src="../../DataHandler/UserHandler.js"></script>
+    <script src="../scripts/manage-credit.js"></script>
+    <script src="../scripts/home.js"></script>
     <script src="scripts/main.js"></script>
 </body>
 

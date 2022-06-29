@@ -1,5 +1,13 @@
 let form;
 let registerHandler;
+function responseCallBack(reqStatus) {
+    if(reqStatus.status) {
+        console.log('success')
+        window.location.href = "login.html";
+    } else {
+        alert('something went wrong')
+    }
+}
 
 function formHandler(e) {
     e.preventDefault()
@@ -10,12 +18,8 @@ function formHandler(e) {
         signFormData[d[0]] = d[1]
     }
 
-    if(registerHandler.register(signFormData)) {
-        console.log('success')
-        // window.location.href = "login.html";
-    } else {
-        alert('something went wrong')
-    }
+    registerHandler.register(signFormData, responseCallBack)
+        
 }
 
 function startUp() {

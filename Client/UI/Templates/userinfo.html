@@ -28,6 +28,7 @@
 					<div class="dropdown-content" id="myDropdown">
 						<a href="userinfo.html">User info</a>
 						<a href="manage-credit.html">Manage credit</a>
+						<a href="cart.html">My Cart</a>
 					</div>
 				</div>
 				<a href="login.html">Logout</a>
@@ -36,12 +37,12 @@
 		<div class="categories">
 			<ul>
 				<li><a class="active" href="home.html">Home</a></li>
-				<li><a href="#contact">Electronics</a></li>
-				<li><a href="#about">Clothes</a></li>
-				<li><a href="#contact">Health</a></li>
-				<li><a href="#about">Skincare</a></li>
-				<li><a href="#contact">Entertainment</a></li>
-				<li><a href="#about">Food</a></li>
+				<li><a href="#electronics">Electronics</a></li>
+				<li><a href="#clothes">Clothes</a></li>
+				<li><a href="#health">Health</a></li>
+				<li><a href="#skincare">Skincare</a></li>
+				<li><a href="#entertainment">Entertainment</a></li>
+				<li><a href="#food">Food</a></li>
 			</ul>
 			<br>
 
@@ -52,21 +53,23 @@
 				<p class="p-info">User Information</p> <br>
 			</div>
 			<div class="info2">
-				<form action="" method="post">
-					<label for="field1"><span>Name </span></span><input type="text" class="input-field" name="field1"
+				<form action="">
+					<label for="name"><span>Name </span></span><input type="text" class="input-field" name="name"
 							value="" readonly /></label>
-					<label for="field2"><span>Email </span></span><input type="text" class="input-field" name="field2"
+					<label for="email"><span>Email </span></span><input type="text" class="input-field" name="email"
 							value="" readonly /></label>
-					<label><span>Telephone</span></span><input type="text" class="input-field" name="field2" value=""
+					<label><span>Telephone</span></span><input type="text" class="input-field" name="telephone" value=""
 							readonly /></label>
-					<label for="field1"><span>Country </span></span><input type="text" class="input-field" name="field1"
+					<label for="country"><span>Country </span></span><input type="text" class="input-field" name="country"
 							value="" readonly /></label>
-					<label for="field2"><span>Balance </span></span><input type="text" class="input-field" name="field2"
+					<label for="balance"><span>Balance </span></span><input type="text" class="input-field" name="balance"
 							value="" readonly /></label>
 				</form>
 			</div>
 		</div>
 	</div>
+	<script src="../../DataHandler/UserHandler.js"></script>
+	<script src="../scripts/userInfo.js"></script>
 	<script src="../scripts/home.js"></script>
 </body>
 </html>

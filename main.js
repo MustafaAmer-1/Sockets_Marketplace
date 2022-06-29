@@ -5,6 +5,7 @@ const createWindow = () => {
         width: 700,
         height: 600,
     })
+    win.removeMenu()
     win.loadFile('./Client/UI/Templates/home.html')
 }
 

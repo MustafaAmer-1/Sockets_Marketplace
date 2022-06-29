@@ -1,6 +1,6 @@
 class LoginHandler {
 
-    login(userInfo) {
+    login(userInfo, callback) {
         
         console.log(userInfo)
         // userInfo Example
@@ -10,6 +10,6 @@ class LoginHandler {
         //    }
         // return {status: true} if logged in otherwise false
         // or {status: false, err: "somehting"}
-        return true;
+        callback({status: true})
     }
 }
