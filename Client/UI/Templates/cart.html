@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	
+	<link rel="stylesheet" href="../css/cart.css">
+	<link rel="stylesheet" href="../css/home.css">
+	<link rel="stylesheet" href="../css/userinfo.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<meta charset="UTF-8">
+	<title>Your Cart</title>
+</head>
+
+<body>
+	
+	<div class="info-page">
+		<div class="topnav">
+			<img src="trolilogo.jpg">
+
+			<div class="search-container">
+					<input type="text" id="searchInput" placeholder="What are you looking for ...." name="search">
+					<button id="searchButton"><i class="fa fa-search"></i></button>
+			</div>
+			<div class=right-menu>
+				<div class="dropdown">
+					<button class="dropbtn" onclick="myFunction()">MyAccount
+						<i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content" id="myDropdown">
+						<a href="userinfo.html">User info</a>
+						<a href="manage-credit.html">Manage credit</a>
+						<a href="cart.html">My Cart</a>
+					</div>
+				</div>
+				<a id="logout">Logout</a>
+			</div>
+		</div>
+		<div class="categories">
+			<ul>
+				<li><a  href="home.html">Home</a></li>
+				<li><a href="home.html#electronics">Electronics</a></li>
+				<li><a href="home.html#clothes">Clothes</a></li>
+				<li><a href="home.html#health">Health</a></li>
+				<li><a href="home.html#skincare">Skincare</a></li>
+				<li><a href="home.html#entertainment">Entertainment</a></li>
+				<li><a href="home.html#food">Food</a></li>
+			</ul>
+			<br>
+
+		</div>
+		<div class="form-style-3">
+			
+<table>
+
+
+
+</table>
+
+  	<button class="cbtn" id="checkout">
+		Checkout
+	</button>
+	</div>
+
+	<script >
+		
+	function myFunction() {
+    	document.getElementById("myDropdown").classList.toggle("show");
+	}
+	</script>
+		<!-- <script src="scripts/main.js"></script> -->
+		<script src="../../Lib/nedb.min.js"></script>		
+		<script src="../scripts/cart.js"></script>
+		<script src="../scripts/home.js"></script>
+	</body>
+</html>

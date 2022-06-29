@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
+* {box-sizing: border-box}
+
+/* Add padding to containers */
+body
+{
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+}
+
+
+.loginbtn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+    font-size: 18px;
+}
+
+.myform {
+  border: 2px solid;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: #c9c8de;
+    border-color: #c6b0b0;
+    width: 650px;
+ 
+}
+.reg-page
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to right top, #4D774E, #164A41);
+
+
+  min-height: 100vh;
+}
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+
+.loginbtn {
+    background-color: #04AA6D !important;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 30px;
+    color: white !important;
+    padding: 16px 20px ;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.loginbtn:hover {
+    opacity: 1;
+}
+
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+
+.parclass{
+  padding: 15px;
+  margin: 5px 0 15px 0;
+}

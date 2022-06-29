@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.cbtn{
+  background-color: rgb(0, 0, 0); 
+  font-family: 'Montserrat', sans-serif;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  height: 40px;
+  width: 200px;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.dlt{
+  background-color: rgb(212, 35, 35); 
+  font-family: 'Montserrat', sans-serif;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  height: 40px;
+  width: 80px;
+  margin: auto;
+}
+
+
+
+.info-page {
+  background-image: linear-gradient(to right top, #4D774E, #164A41);
+  min-height: 100vh;
+
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.form-style-3 {
+  max-width: 650px;
+  padding: 20px 12px 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  height: auto;
+  padding: 20px 12px 10px 20px;
+  text-align: center;
+  margin: auto;
+  margin-top: 2%;
+  padding: 20px;
+  border-color: #c6b0b0;
+  border: 1px solid rgba(0, 0, 0, .125);
+  border-radius: .25rem;
+  background-color: #eee;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, .125);
+  border-radius: 2.25rem;
+}
+table {
+  font-family: 'Montserrat', sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+td:nth-child(4){
+  text-align: center;
+}
+
+
+.qty{
+  height: 40px;
+  min-width: 50px;
+  max-width: 90px;
+  display: flex;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  background: #FFF;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.qty span{
+  width: 100%;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+.qty span.num{
+  font-size: 10;
+  border-right: 2px solid rgba(0,0,0,0.2);
+  border-left: 2px solid rgba(0,0,0,0.2);
+  pointer-events: none;
+}

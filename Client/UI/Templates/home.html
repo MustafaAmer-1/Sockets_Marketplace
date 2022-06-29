@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../css/home.css">
+	<title>Dashboard</title>	
+</head>
+
+<body>
+	<div class="home-page">
+		<div class="topnav">
+			<img src="trolilogo.jpg">
+
+			<div class="search-container">
+					<input type="text" id="searchInput" placeholder="Search...." name="search">
+					<button id="searchButton"><i class="fa fa-search"></i></button>
+			</div>
+			<div class=right-menu>
+				<div class="dropdown">
+					<button class="dropbtn" onclick="myFunction()">MyAccount
+						<i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content" id="myDropdown">
+						<a href="userinfo.html">User info</a>
+						<a href="manage-credit.html">Manage credit</a>
+						<a href="cart.html">My Cart</a>
+					</div>
+				</div>
+				<a id="logout">Logout</a>
+			</div>
+		</div>
+		<div class="categories">
+			<ul>
+				<li><a class="tag" id="home" href="#home" name="home">Home</a></li>
+				<li><a class="tag" name="electronics" href="home.html#electronics">Electronics</a></li>
+				<li><a class="tag" name="clothes" href="home.html#clothes">Clothes</a></li>
+				<li><a class="tag" name="health" href="home.html#health">Health</a></li>
+				<li><a class="tag" name="skincare" href="home.html#skincare">Skincare</a></li>
+				<li><a class="tag" name="entertainment" href="home.html#entertainment">Entertainment</a></li>
+				<li><a class="tag" name="food" href="home.html#food">Food</a></li>
+			</ul>
+			<br>
+
+		</div>
+
+		<div class="products-container">
+			<div class="pro">
+				<img src="p1.jpg">
+				<h1>Tailored Jeans</h1>
+				<p class="price">$19.99</p>
+				<div class="qty">
+					<span class="minus">-</span>
+					<span class="num">0</span>
+					<span class="plus">+</span>
+				</div>
+				<p class="cartbtn"><a href="items.html">
+					<button>Add to cart</button>
+				</a>
+			</p>
+			</div>
+		</div>
+		<script src="../../Lib/nedb.min.js"></script>
+		<script src="../scripts/home.js"></script>
+	</div>
+</body>
+
+</html>	
