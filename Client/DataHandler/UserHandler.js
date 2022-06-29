@@ -4,10 +4,10 @@ class UserHandler {
 
     }
 
-    getUserInfo() {
+    
+    getUserInfo(callback) {
         // send request to server to get data of user
         // expected data 
-
         let userData = {
             email: 'hello@gmail',
             name: 'testing',
@@ -16,6 +16,6 @@ class UserHandler {
             balance: '50'
         }
 
-        return userData
+        callback(userData)
     }
 }
