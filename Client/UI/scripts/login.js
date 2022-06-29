@@ -1,7 +1,14 @@
 
 let form;
 let loginHandler;
-
+function responseCallBack(reqStatus) {
+    if(reqStatus.status) {
+        console.log('success')
+        window.location.href = "home.html"
+    } else {
+        alert('Wrong username or password')
+    }
+}
 function formHandler(e) {
     e.preventDefault()
 
@@ -12,12 +19,7 @@ function formHandler(e) {
         loginDate[entry[0]] = entry[1]
     }
 
-    if(loginHandler.login(loginDate)) {
-        console.log('success')
-        // redirect to home page
-    } else {
-        alert('Wrong email or password')
-    }
+    loginHandler.login(loginDate, responseCallBack)
 }
 function startUp() {
     form = document.querySelector('form')
