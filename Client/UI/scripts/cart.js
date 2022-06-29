@@ -2,6 +2,7 @@
 
 let tableItems;
 let cartHandler;
+let checkoutBtn;
 
 function deleteFromCart(e) {
     let row = e.closest('tr')
@@ -59,11 +60,21 @@ function decrementQty(e) {
         sibling.innerHTML = qty - 1
 
 }
-
+function clearTable() {
+    const firstElement = tableItems.firstElementChild.firstElementChild
+    console.log(firstElement)
+    tableItems.innerHTML = ''
+    tableItems.append(firstElement)
+}
+function placeOrder(e) {
+    cartHandler.placeOrder(clearTable)
+}
 function startUp() {
     tableItems = document.querySelector('table')
     cartHandler = new CartHandler()
     cartHandler.getCartItemsCallback(populateTable)
+    checkoutBtn = document.getElementById('checkout')
+    checkoutBtn.addEventListener('click', placeOrder)
 }
 
 startUp()
