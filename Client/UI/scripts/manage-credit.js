@@ -11,4 +11,12 @@ function startUp() {
     userHandler.getUserInfo(populateBalance)
 }
 
+function getConfirmationfordeposit() {
+    var resp = window.prompt("Please enter Deposit Amount")
+}
+
+function getConfirmationforredraw() {
+    var resp = window.prompt("Please enter withdrawal Amount")
+}
+
 startUp()
