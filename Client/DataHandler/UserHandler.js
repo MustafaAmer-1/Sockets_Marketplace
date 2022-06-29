@@ -14,7 +14,7 @@ class UserHandler {
         // {status: true}
         this.conn.sendRequest({
             action: 'withdraw',
-            amount: amount
+            data: amount
         }, callback);
     }
 
@@ -27,7 +27,7 @@ class UserHandler {
 
         this.conn.sendRequest({
             action: 'deposite',
-            amount: amount
+            data: amount
         }, callback);
     }
 
