@@ -12,6 +12,11 @@ class LoginHandler {
             data: userInfo
         }, callback);
     }
+    logout(callback) {
+        this.conn.sendRequest({
+            action: 'logout'
+        }, callback)
+    }
 }
 
 module.exports = LoginHandler
