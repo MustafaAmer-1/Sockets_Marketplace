@@ -50,6 +50,7 @@
 .home-page {
   background-image: linear-gradient(to right top, #4D774E, #164A41);
   height: 100%;
+  min-height: 100vh;
 }
 
 .topnav .search-container button {
