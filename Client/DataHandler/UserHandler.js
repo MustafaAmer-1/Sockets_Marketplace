@@ -12,7 +12,10 @@ class UserHandler {
             // {amount: 50}
 
         // {status: true}
-        callback({ status: true })
+        this.conn.sendRequest({
+            action: 'withdraw',
+            amount: amount
+        }, callback);
     }
 
     deposit(amount, callback) {
@@ -21,7 +24,11 @@ class UserHandler {
             // {amount: 50}
 
         // {status: true}
-        callback({ status: true })
+
+        this.conn.sendRequest({
+            action: 'deposite',
+            amount: amount
+        }, callback);
     }
 
 
