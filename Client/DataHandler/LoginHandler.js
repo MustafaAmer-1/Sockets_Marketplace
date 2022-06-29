@@ -12,9 +12,12 @@ class LoginHandler {
             data: userInfo
         }, callback);
     }
+
+    // data should be the user cart
     logout(callback) {
         this.conn.sendRequest({
-            action: 'logout'
+            action: 'logout',
+            data: {}
         }, callback)
     }
 }
