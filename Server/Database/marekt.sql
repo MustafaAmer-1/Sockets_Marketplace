@@ -1,3 +1,7 @@
+DROP DATABASE IF EXISTS Market;
+CREATE DATABASE Market;
+USE Market;
+
 CREATE TABLE Cart
 (
   CID INT NOT NULL,
@@ -13,14 +17,17 @@ CREATE TABLE Category
 
 CREATE TABLE Customer
 (
-  Name VARCHAR(50) NOT NULL,
+  CustID INT NOT NULL,
+  Name_ VARCHAR(50) NOT NULL,
   Email VARCHAR(500) NOT NULL,
-  Password INT NOT NULL,
+  Password_ VARCHAR(50) NOT NULL,
   Gender VARCHAR(10),
   Phone_number VARCHAR(20),
-  Age INT,
+  Balance FLOAT NOT NULL,
+  DOB DATE,
   CID INT NOT NULL,
-  PRIMARY KEY (Email),
+  UNIQUE(Email),
+  PRIMARY KEY (CustID),
   FOREIGN KEY (CID) REFERENCES Cart(CID)
 );
 
@@ -40,9 +47,9 @@ CREATE TABLE Orders
 (
   OID INT NOT NULL,
   Date DATE,
-  Email VARCHAR(500) NOT NULL,
+  CustID INT NOT NULL,
   PRIMARY KEY (OID),
-  FOREIGN KEY (Email) REFERENCES Customer(Email)
+  FOREIGN KEY (CustID) REFERENCES Customer(CustID)
 );
 
 CREATE TABLE Contain
