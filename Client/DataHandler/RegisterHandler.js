@@ -1,4 +1,7 @@
 class RegisterHandler {
+    constructor() {
+        this.conn = require('./ServerConnection');
+    }
 
     register(userInfo, callback) {
 
@@ -10,6 +13,9 @@ class RegisterHandler {
         // or
         // {status: false, err: " gge "}
         console.log(userInfo)
-        callback({status: true})
+        this.conn.sendRequest({
+            action: 'register',
+            data: userInfo
+        }, callback);
     }
 }

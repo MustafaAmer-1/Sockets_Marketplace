@@ -1,4 +1,3 @@
-
 let currentActiveCategory;
 let itemsHandler;
 let ProductContainer;
@@ -12,7 +11,7 @@ function myFunction() {
 }
 
 function changeActiveElement(element) {
-    if(currentActiveCategory) currentActiveCategory.classList.remove("active")
+    if (currentActiveCategory) currentActiveCategory.classList.remove("active")
     currentActiveCategory = element;
     currentActiveCategory.classList.add("active")
 }
@@ -21,7 +20,7 @@ function showItems(items) {
     console.log(items)
     itemsNodes = []
     items.forEach(item => {
-        
+
         let node = `
             <div class="pro" data-id=${item.id}>
                 <img src="data:image/webp;base64,${item.image}">
@@ -47,23 +46,23 @@ function showItems(items) {
 function findSiblingWithClassName(element, className) {
     let par = element.parentElement
 
-    for(node of par.children) {
-        if(node.classList.contains(className)) return node;
-    } 
+    for (node of par.children) {
+        if (node.classList.contains(className)) return node;
+    }
 }
 
 function incrementQty(e) {
     let sibling = findSiblingWithClassName(e, 'num')
     let qty = parseInt(sibling.innerHTML)
     let maxQty = parseInt(e.parentElement.dataset.maxqty)
-    if(qty < maxQty)
+    if (qty < maxQty)
         sibling.innerHTML = qty + 1
 }
 
 function decrementQty(e) {
     let sibling = findSiblingWithClassName(e, 'num')
     let qty = parseInt(sibling.innerHTML)
-    if(qty > 0)
+    if (qty > 0)
         sibling.innerHTML = qty - 1
 
 }
@@ -71,13 +70,19 @@ function decrementQty(e) {
 function HandleTagClick(e) {
     let element = e.target;
     changeActiveElement(element);
-    itemsHandler.getItems({category: element.name}, showItems)
+    itemsHandler.getItems({
+        filter: 'category',
+        query: element.name
+    }, showItems)
 }
 
 function searchFor(e) {
     let input = searchInput.value
 
-    itemsHandler.getItems({ searchQuery: input }, showItems)
+    itemsHandler.getItems({
+        filter: 'search',
+        query: input
+    }, showItems)
     searchInput.value = ''
 
 }
@@ -87,22 +92,23 @@ function addCartEvent(e) {
     itemData = {
         id: itemNode.dataset.id,
     }
-    for(let i = 0; i < itemNode.children.length; ++i) {
-        
-        if(itemNode.children[i].tagName == 'H1')
+    for (let i = 0; i < itemNode.children.length; ++i) {
+
+        if (itemNode.children[i].tagName == 'H1')
             itemData.name = itemNode.children[i].innerHTML
-        else if(itemNode.children[i].classList.contains('price'))
+        else if (itemNode.children[i].classList.contains('price'))
             itemData.price = itemNode.children[i].innerHTML.substring(1)
-        else if(itemNode.children[i].classList.contains('qty')) {
+        else if (itemNode.children[i].classList.contains('qty')) {
             itemData.quantity = parseInt(itemNode.children[i].querySelector('.num').innerHTML)
             itemData.maxqty = itemNode.children[i].dataset.maxqty
         }
     }
-    if(itemData.quantity == 0) alert('Please add an item')
+    if (itemData.quantity == 0) alert('Please add an item')
     else cartHandler.addItem(itemData)
 }
+
 function startUp() {
-    
+
     currentActiveCategory = document.getElementById("home")
     tagList = document.querySelectorAll('.tag')
     searchButton = document.getElementById('searchButton')
@@ -119,8 +125,11 @@ function startUp() {
 
     searchButton.addEventListener('click', searchFor)
 
-    itemsHandler.getItems({category: 'home'}, showItems)
-    
+    itemsHandler.getItems({
+        filter: 'all',
+        query: '*'
+    }, showItems)
+
 }
 
 startUp();
