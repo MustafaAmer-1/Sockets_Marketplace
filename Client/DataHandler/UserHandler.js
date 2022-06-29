@@ -1,7 +1,9 @@
+const path = require('path')
+
 class UserHandler {
 
     constructor() {
-        this.conn = require('./ServerConnection');
+        this.conn = require(path.join(__dirname, 'ServerConnection'));
     }
 
     withdraw(amount, callback) {
@@ -31,3 +33,5 @@ class UserHandler {
         }, callback);
     }
 }
+
+module.exports = UserHandler

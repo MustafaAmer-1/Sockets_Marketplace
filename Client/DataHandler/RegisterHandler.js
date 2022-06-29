@@ -1,6 +1,7 @@
+const path = require('path')
 class RegisterHandler {
     constructor() {
-        this.conn = require('./ServerConnection');
+        this.conn = require(path.join(__dirname, 'ServerConnection'));
     }
 
     register(userInfo, callback) {
@@ -19,3 +20,5 @@ class RegisterHandler {
         }, callback);
     }
 }
+
+module.exports = RegisterHandler

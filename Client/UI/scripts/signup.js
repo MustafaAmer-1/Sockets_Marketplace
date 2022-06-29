@@ -1,5 +1,6 @@
 let form;
 let registerHandler;
+const RegisterHandler = require('../../DataHandler/RegisterHandler')
 function responseCallBack(reqStatus) {
     if(reqStatus.status) {
         console.log('success')

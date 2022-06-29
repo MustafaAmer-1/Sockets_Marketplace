@@ -1,6 +1,8 @@
+const path = require('path')
+
 class LoginHandler {
     constructor() {
-        this.conn = require('./ServerConnection');
+        this.conn = require(path.join(__dirname, 'ServerConnection'));
     }
     login(userInfo, callback) {
         console.log(userInfo)
@@ -11,3 +13,5 @@ class LoginHandler {
         }, callback);
     }
 }
+
+module.exports = LoginHandler

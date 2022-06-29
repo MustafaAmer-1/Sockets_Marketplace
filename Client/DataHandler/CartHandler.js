@@ -1,8 +1,9 @@
+const path = require('path')
 class CartHandler {
 
     constructor() {
         this.db = new Nedb({ filename: '/cartPresistData.db', autoload: true })
-        this.conn = require('./ServerConnection');
+        this.conn = require(path.join(__dirname, 'ServerConnection'));
     }
     addItem(item) {
         this.db.update({ id: item.id }, item, { upsert: true }, function(err, doc) {
@@ -69,6 +70,8 @@ class CartHandler {
                 action: 'order',
                 data: docs
             }, innerCallback);
-        })
+        }.bind(this))
     }
 }
+
+module.exports = CartHandler

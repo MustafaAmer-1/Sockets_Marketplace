@@ -1,5 +1,5 @@
 let userHandler;
-
+const UserHandler = require('../../DataHandler/UserHandler')
 function populateForm(userData) {
     document.getElementsByName('name')[0].value = userData.name
     document.getElementsByName('email')[0].value = userData.email

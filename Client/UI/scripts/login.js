@@ -1,6 +1,8 @@
 
 let form;
 let loginHandler;
+const LoginHandler = require('../../DataHandler/LoginHandler')
+
 function responseCallBack(reqStatus) {
     if(reqStatus.status) {
         console.log('success')

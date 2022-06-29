@@ -8,6 +8,11 @@ let addCartButtons;
 let logoutBtn;
 let loginHandler;
 let url;
+
+const LoginHandler = require('../../DataHandler/LoginHandler')
+var CartHandler = require('../../DataHandler/CartHandler')
+const ItemsHandler = require('../../DataHandler/ItemsHandler')
+
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
@@ -143,7 +148,6 @@ function startUp() {
     logoutBtn.addEventListener('click', logoutButtonEvent)
 
     url = new URL(window.location)
-    console.log(url)
     if(ProductContainer) {
         
         itemsHandler = new ItemsHandler();

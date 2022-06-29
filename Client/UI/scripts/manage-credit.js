@@ -1,6 +1,8 @@
 
 let userHandler;
 let balanceField;
+const UserHandler = require('../../DataHandler/UserHandler')
+
 function responseCallBackGenerator(action) {
     return function (reqStatus) {
             if(reqStatus.status) {

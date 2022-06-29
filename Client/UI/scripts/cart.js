@@ -3,7 +3,7 @@
 let tableItems;
 let cartHandlerC;
 let checkoutBtn;
-
+var CartHandler = require('../../DataHandler/CartHandler')
 function deleteFromCart(e) {
     let row = e.closest('tr')
     let id = row.dataset.id
