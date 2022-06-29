@@ -67,14 +67,13 @@ function decrementQty(e) {
 function HandleTagClick(e) {
     let element = e.target;
     changeActiveElement(element);
-    itemsHandler.getCategorizedItems({category: element.name}, showItems)
+    itemsHandler.getItems({category: element.name}, showItems)
 }
 
 function searchFor(e) {
     let input = searchInput.value
-    console.log(input)
 
-    itemsHandler.getSearchItems({ searchQuery: input }, showItems)
+    itemsHandler.getItems({ searchQuery: input }, showItems)
     searchInput.value = ''
 
 }
@@ -116,7 +115,7 @@ function startUp() {
 
     searchButton.addEventListener('click', searchFor)
 
-    itemsHandler.getCategorizedItems({category: 'home'}, showItems)
+    itemsHandler.getItems({category: 'home'}, showItems)
     
 }
 
