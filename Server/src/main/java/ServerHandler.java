@@ -19,6 +19,21 @@ public class ServerHandler{
         catch (SQLException e) { e.printStackTrace(); }
     }
 
+    public static boolean Deposit_cash(JsonNode node){
+        String sql;
+        PreparedStatement stm = null;
+        float amount = node.get("amount").asLong();
+        ResultSet rs = null;
+        try {
+            //Updating Database with the new balance
+            sql = "UPDATE Customer SET Balance = Balance + ?  WHERE CustID = ?";
+            stm = con.prepareStatement(sql);
+            stm.setFloat(1, amount);
+            stm.setInt(2, CustID);
+            stm.executeUpdate();
+        } catch (SQLException e) { e.printStackTrace(); }
+        return true;
+    }
 
     public boolean withdraw_cash(JsonNode node){
         String sql;
