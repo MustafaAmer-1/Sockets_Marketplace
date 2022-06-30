@@ -113,8 +113,8 @@ public class ServerHandler{
     }
     public  boolean Authentication(JsonNode n)
     {
-        String email = (String)n.path("Email").asText();
-        String pass = (String)n.path("Password_").asText();
+        String email = (String)n.path("email").asText();
+        String pass = (String)n.path("psw").asText();
         Statement stm = null;
         try{
 
@@ -235,9 +235,8 @@ public  JsonNode getAllItems()
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setInt(1 , CustID);
 
-            ResultSet rs = stm.executeQuery(sql);
+            ResultSet rs = stm.executeQuery();
             ArrayList<Item> arr= new ArrayList<>();
-            int i=0;
             while(rs.next()) {
                 Pname = rs.getString("Pname");
                 price = rs.getFloat("Price");
