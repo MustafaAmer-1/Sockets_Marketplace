@@ -19,7 +19,7 @@ public class ServerHandler{
         catch (SQLException e) { e.printStackTrace(); }
     }
 
-    public static boolean Deposit_cash(JsonNode node){
+    public boolean Deposit_cash(JsonNode node){
         String sql;
         PreparedStatement stm = null;
         float amount = node.get("amount").asLong();

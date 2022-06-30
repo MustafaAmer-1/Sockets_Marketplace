@@ -57,8 +57,15 @@ public class ClientHandler implements Runnable{
         commands.put("login",
                 (data) -> {
                     ObjectNode res = mapper.createObjectNode();
-                    res.put("status", handler.Authentication(
-                            data.get("data")));
+                    boolean auth = handler.Authentication(
+                            data.get("data"));
+                    res.put("status", auth);
+                    if(auth){
+                        res.set("cart", handler.get_cart());
+                    }
+                    else{
+                        res.put("error", "Invalid Login");
+                    }
                     return res;
                 });
 
@@ -82,6 +89,14 @@ public class ClientHandler implements Runnable{
                 (data) -> {
                     ObjectNode res = mapper.createObjectNode();
                     res.put("status", handler.withdraw_cash(
+                            data.get("data")));
+                    return res;
+                });
+
+        commands.put("deposite",
+                (data) -> {
+                    ObjectNode res = mapper.createObjectNode();
+                    res.put("status", handler.Deposit_cash(
                             data.get("data")));
                     return res;
                 });
