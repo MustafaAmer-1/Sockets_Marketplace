@@ -113,8 +113,8 @@ public class ServerHandler{
     }
     public  boolean Authentication(JsonNode n)
     {
-        String email = (String)n.path("Email").asText();
-        String pass = (String)n.path("Password_").asText();
+        String email = (String)n.path("email").asText();
+        String pass = (String)n.path("psw").asText();
         Statement stm = null;
         try{
 

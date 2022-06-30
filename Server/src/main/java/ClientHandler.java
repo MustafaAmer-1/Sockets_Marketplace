@@ -29,25 +29,30 @@ public class ClientHandler implements Runnable{
 
             while (true) {
                 String msgFromClient = bufferedReader.readLine();
+                if(msgFromClient == null){
+                    continue;
+                }
+                System.out.println("Client: " + msgFromClient);
+                if (msgFromClient.equalsIgnoreCase("BYE")) {
+                    break;
+                }
                 JsonNode req = mapper.readTree(msgFromClient);
                 JsonNode response = commands.get(
-                        req.get("action").asText())
+                                req.get("action").asText())
                         .execute(
                                 req.get("data"));
-                bufferedWriter.write(response.asText());
+                System.out.println("Server Response: " + response);
+                bufferedWriter.write(String.valueOf(response));
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
-                if (msgFromClient == null || msgFromClient.equalsIgnoreCase("BYE"))
-                    break;
             }
-
             socket.close();
             inputStreamReader.close();
             outputStreamWriter.close();
             bufferedReader.close();
             bufferedWriter.close();
         }
-        catch (IOException e){
+        catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -57,11 +62,10 @@ public class ClientHandler implements Runnable{
         commands.put("login",
                 (data) -> {
                     ObjectNode res = mapper.createObjectNode();
-                    boolean auth = handler.Authentication(
-                            data.get("data"));
+                    boolean auth = handler.Authentication(data);
                     res.put("status", auth);
                     if(auth){
-                        res.set("cart", handler.get_cart());
+                       res.set("cart", handler.get_cart());
                     }
                     else{
                         res.put("error", "Invalid Login");
@@ -72,32 +76,28 @@ public class ClientHandler implements Runnable{
         commands.put("order",
                 (data) -> {
                     ObjectNode res = mapper.createObjectNode();
-                    res.put("status", handler.submit_order(
-                            data.get("data")));
+                    res.put("status", handler.submit_order(data));
                     return res;
                 });
 
         commands.put("register",
                 (data) -> {
                     ObjectNode res = mapper.createObjectNode();
-                    res.put("status", handler.Register(
-                            data.get("data")));
+                    res.put("status", handler.Register(data));
                     return res;
                 });
 
         commands.put("withdraw",
                 (data) -> {
                     ObjectNode res = mapper.createObjectNode();
-                    res.put("status", handler.withdraw_cash(
-                            data.get("data")));
+                    res.put("status", handler.withdraw_cash(data));
                     return res;
                 });
 
         commands.put("deposite",
                 (data) -> {
                     ObjectNode res = mapper.createObjectNode();
-                    res.put("status", handler.Deposit_cash(
-                            data.get("data")));
+                    res.put("status", handler.Deposit_cash(data));
                     return res;
                 });
 
