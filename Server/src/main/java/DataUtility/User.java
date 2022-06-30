@@ -6,11 +6,11 @@ public class User {
     private final String name;
     private String Username;
     private String Password;
-    private int Balance;
+    private float Balance;
     private final Cart mCart;
     private final ArrayList<Order> orders = new ArrayList<Order>();
 
-    public User(String name, String username, String password, int balance) {
+    public User(String name, String username, String password, float balance) {
         this.name = name;
         Username = username;
         Password = password;
@@ -34,7 +34,7 @@ public class User {
         return Password;
     }
 
-    public int getBalance() {
+    public float getBalance() {
         return Balance;
     }
 
