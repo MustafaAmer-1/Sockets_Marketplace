@@ -27,13 +27,28 @@ class CartHandler {
             callback(docs)
         })
     }
-
+    deleteAllCartItems() {
+        this.db.remove({}, {multi: true}, function(err, numberRemoved) {
+            if(err) console.log('Error', err)
+            else console.log(numberRemoved)
+        })
+    }
     deleteCartItem(id) {
         this.db.remove({ id: id }, function(err, numberRemoved) {
             if (err) console.log("error", err)
         })
     }
 
+    cartSendOutFormater(docs) {
+        return  docs.map((doc) => {
+            delete doc.name
+            delete doc.maxqty
+            delete doc.price
+            delete doc._id
+            return doc
+        })
+
+    }
     placeOrder(callback) {
         // send data of  order in format
         // {items: [
@@ -58,13 +73,7 @@ class CartHandler {
         }.bind(this)
 
         this.db.find({}, function(err, docs) {
-            docs = docs.map((doc) => {
-                delete doc.name
-                delete doc.maxqty
-                delete doc.price
-                return doc
-            })
-
+            docs = this.cartSendOutFormater(docs)
             // Send data here
             this.conn.sendRequest({
                 action: 'order',
