@@ -150,4 +150,48 @@ public class ServerHandler{
         return false;
 }
 
+public  JsonNode getAllItems()
+    {
+        Statement stm = null;
+        int Stock_Quantity=0;
+        String ImageURL ="";
+        float price=0;
+        String Pname="";
+        String CatName ="";
+        JsonNode jsonNode = null;
+        try{
+
+            stm = con.createStatement();
+            String sql = "SELECT CatName,Pname,Price,Stock_Quantity,ImageURL FROM Product , Category WHERE Product.CatID =Category.CatID";
+            PreparedStatement stm1 = con.prepareStatement(sql);
+            ResultSet rs = stm1.executeQuery();
+            ArrayList<Item> arr= new ArrayList<>();
+            int i=0;
+            while(rs.next()) {
+                Pname = rs.getString("Pname");
+                price = rs.getFloat("Price");
+                Stock_Quantity= rs.getInt("Stock_Quantity");
+                CatName= rs.getString("CatName");
+                ImageURL=rs.getString("ImageURL");
+                Item arr1 = new Item(Pname,price,Stock_Quantity,ImageURL,CatName);
+                arr.add(arr1);
+            }
+            ObjectMapper mapper = new ObjectMapper();
+
+            try {
+                String jsonnode = mapper.writeValueAsString(arr);
+                JsonNode json = mapper.readTree(jsonnode);
+                return json ;
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return jsonNode;
+    }
+}
+
 }
