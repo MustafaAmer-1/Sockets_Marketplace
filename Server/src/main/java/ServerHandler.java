@@ -91,6 +91,42 @@ public class ServerHandler{
         return true;
 
     }
+    public  boolean Authentication(JsonNode n)
+    {
+        String email = (String)n.path("Email").asText();
+        String pass = (String)n.path("Password_").asText();
+        Connection con = connect_db();
+        Statement stm = null;
+        try{
+
+            stm = con.createStatement();
+            String sql = "SELECT Password_ ,CustID FROM Customer WHERE Email =?";
+            PreparedStatement stm1 = con.prepareStatement(sql);
+            stm1.setString(1,email);
+            ResultSet rs = stm1.executeQuery();
+            if(rs.next()) {
+                String passcheck = rs.getString("Password_");
+                if (passcheck.equals( pass)) return  true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if(stm!=null)
+                    con.close();
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try{
+                if(con!=null)
+                    con.close();
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 
 
 }
