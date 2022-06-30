@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.sql.*;
 import DataUtility.Item;
 import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class ServerHandler{
     private int CustID = -1;
@@ -14,7 +16,7 @@ public class ServerHandler{
     ServerHandler(){
         try {
             // Setting Database Connection
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Market", "root", "");
         }
         catch (ClassNotFoundException e) { e.printStackTrace(); }
@@ -303,6 +305,50 @@ public  JsonNode getAllItems()
         
 return jsonNode;
     }
+
+    public JsonNode search_item_category(JsonNode node){
+        int Stock_Quantity;
+        String ImageURL;
+        float price;
+        String Pname;
+        String CatName;
+        String a = node.path("Key").asText();
+        System.out.println(a);
+        try{
+
+            String sql = "SELECT Pname,Price,Stock_Quantity,ImageURL,CatName " +
+                    "FROM Product , Category WHERE Product.CatID =Category.CatID AND Category.CatName LIKE ?";
+            PreparedStatement stm1 = con.prepareStatement(sql);
+            stm1.setString (1 ,"%" +a+"%" );
+            ResultSet rs = stm1.executeQuery();
+            ArrayList<Item> arr= new ArrayList<>();
+            while(rs.next()) {
+                Pname = rs.getString("Pname");
+                price = rs.getFloat("Price");
+                Stock_Quantity= rs.getInt("Stock_Quantity");
+                CatName= rs.getString("CatName");
+                ImageURL=rs.getString("ImageURL");
+                Item arr1 = new Item(Pname,price,Stock_Quantity,ImageURL,CatName);
+                arr.add(arr1);
+            }
+            ObjectMapper mapper = new ObjectMapper();
+
+            try {
+                String jsonnode = mapper.writeValueAsString(arr);
+                JsonNode json = mapper.readTree(jsonnode);
+                return json ;
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
     public JsonNode search_item_name(JsonNode node){
         int Stock_Quantity;
