@@ -3,8 +3,7 @@ class ItemsHandler {
     // Images are expected to be in base64 encoding 
 
     constructor() {
-        console.log('items', path.resolve(__dirname, 'ServerConnection'))
-        this.conn = require('./ServerConnection');
+        this.conn = require(path.join(__dirname, 'ServerConnection'));
     }
     getItems(request, callback) {
 

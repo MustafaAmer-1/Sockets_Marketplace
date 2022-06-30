@@ -123,6 +123,7 @@ function addCartEvent(e) {
 
 function logoutCallBack() {
     console.log('Logged out successfully')
+    document.location.href = "login.html"
 }
 function logoutButtonEvent(e) {
     loginHandler.logout(logoutCallBack)

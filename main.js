@@ -7,7 +7,8 @@ const createWindow = () => {
         webPreferences: {
             nodeIntegration:  true,
             contextIsolation: false
-        }
+        },
+        icon: './Client/UI/Templates/trolilogo.jpg'
     })
     win.removeMenu()
     win.loadFile('./Client/UI/Templates/home.html')
