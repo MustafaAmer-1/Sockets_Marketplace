@@ -6,8 +6,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.sql.*;
 import DataUtility.Item;
 import java.util.ArrayList;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 public class ServerHandler{
     private int CustID = -1;
