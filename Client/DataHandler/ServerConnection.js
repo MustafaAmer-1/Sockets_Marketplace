@@ -9,11 +9,13 @@ if (!conn) {
 let resQue = [];
 
 function sendRequest(req, callback) {
+    console.log("request: " + req);
     conn.write(JSON.stringify(req) + '\n');
     resQue.push(callback);
 }
 
 conn.on('data', (data) => {
+    console.log("response: " + data.toString('utf-8'));
     if (resQue.length) {
         let res = resQue.shift();
         data = data.toString('utf-8');
@@ -21,4 +23,9 @@ conn.on('data', (data) => {
     }
 });
 
+const onExit = function() {
+    conn.write("BYE\n");
+}
+
 exports.sendRequest = sendRequest;
+exports.onExit = onExit;
