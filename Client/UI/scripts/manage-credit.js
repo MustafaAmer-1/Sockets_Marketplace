@@ -27,7 +27,9 @@ function withdrawEvent(amount) {
 function getConfirmationfordeposit() {
     smalltalk.prompt('Deposit Request', 'Please Enter Deposit Amount', '')
     .then((value) => {
-        depositEvent(parseInt(value))
+        value = parseInt(value)
+        if(isNaN(value)) responseCallBackGenerator('Deposit')({status: false})
+        else depositEvent(value)
     })
     .catch(console.error)
 }
@@ -36,7 +38,8 @@ function getConfirmationforredraw() {
     smalltalk.prompt('Withdraw Request', 'Please Enter  Withdraw Amount', '')
     .then((value) => {
         value = parseInt(value)
-        if(value > balanceField.value) 
+        if(isNaN(value)) responseCallBackGenerator('Withdraw')({status: false})
+        else if(value > balanceField.value) 
             smalltalk.alert("Error", "No sufficient  money to fulfill your operation.").catch(() => console.log('error'))
         else withdrawEvent(value)
     })
