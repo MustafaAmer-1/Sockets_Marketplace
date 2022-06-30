@@ -235,9 +235,8 @@ public  JsonNode getAllItems()
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setInt(1 , CustID);
 
-            ResultSet rs = stm.executeQuery(sql);
+            ResultSet rs = stm.executeQuery();
             ArrayList<Item> arr= new ArrayList<>();
-            int i=0;
             while(rs.next()) {
                 Pname = rs.getString("Pname");
                 price = rs.getFloat("Price");
