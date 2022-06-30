@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import java.sql.*;
+import DataUtility.Item;
 
 public class ServerHandler{
     private int CustID = -1;
@@ -192,6 +193,52 @@ public  JsonNode getAllItems()
         
         return jsonNode;
     }
+
+    public  JsonNode get_cart(){
+        int Product_Quantity;
+        String ImageURL;
+        float price;
+        String Pname;
+        String CatName;
+        JsonNode response = null;
+        
+        try{
+
+
+            String sql = "SELECT CatName,Pname,Price,product_Quantity,ImageURL " +
+                         "FROM Product , Category , Consists_of " +
+                         "WHERE Product.CatID =Category.CatID AND Product.PID = Consists_of.PID AND Consists_of.CID = ?";
+
+
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setInt(1 , CustID);
+
+            ResultSet rs = stm.executeQuery(sql);
+            ArrayList<Item> arr= new ArrayList<>();
+            int i=0;
+            while(rs.next()) {
+                Pname = rs.getString("Pname");
+                price = rs.getFloat("Price");
+                Product_Quantity = rs.getInt("Product_Quantity");
+                CatName= rs.getString("CatName");
+                ImageURL=rs.getString("ImageURL");
+                Item item = new Item(Pname,price,Product_Quantity,ImageURL,CatName);
+                arr.add(item);
+            }
+            ObjectMapper mapper = new ObjectMapper();
+
+            try {
+                String node = mapper.writeValueAsString(arr);
+                response = mapper.readTree(node);
+
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return response ;
+    }
 }
 
-}
