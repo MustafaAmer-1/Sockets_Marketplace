@@ -95,7 +95,6 @@ public class ServerHandler{
     {
         String email = (String)n.path("Email").asText();
         String pass = (String)n.path("Password_").asText();
-        Connection con = connect_db();
         Statement stm = null;
         try{
 
@@ -111,22 +110,44 @@ public class ServerHandler{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        finally {
-            try{
-                if(stm!=null)
-                    con.close();
-            }catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try{
-                if(con!=null)
-                    con.close();
-            }catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+       
         return false;
     }
 
+    public  boolean Register(JsonNode n)throws ClassNotFoundException
+    { 
+        String email = (String)n.path("Email").asText();
+        String name = (String)n.path("Name_").asText();
+        String pass = (String)n.path("Password_").asText();
+        String DOB = (String)n.path("DOB").asText();
+        String gender = (String)n.path("Gender").asText();
+        String phonenumber = (String)n.path("Phone_number").asText();
+        PreparedStatement stm = null;
+        PreparedStatement stm1 = null;
+        try{
+            String sql = "INSERT INTO Customer(Email,Password_,Name_, DOB,Gender,Phone_number,Balance) VALUES(?,?,?,?,?,?,?)" ;
+            stm = con.prepareStatement(sql);
+            stm.setString(1, email);
+            stm.setString(2, pass);
+            stm.setString(3, name);
+            stm.setString(4, DOB);
+            stm.setString(5, gender);
+            stm.setString(6, phonenumber);
+            stm.setInt(7, 0);
+            String sql1 = "INSERT INTO Cart() VALUES();" ;
+            stm1 = con.prepareStatement(sql1);
+            int update = stm.executeUpdate();
+            if(update>0) {
+                stm1.executeUpdate();
+                return true;
+            }
+            else return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        
+        return false;
+}
 
 }
