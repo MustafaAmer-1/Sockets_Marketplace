@@ -1,13 +1,15 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.sql.*;
 import DataUtility.Item;
+import java.util.ArrayList;
 
 public class ServerHandler{
     private int CustID = -1;
     Connection con;
 
-    ServerHandler(int CustID){
-        this.CustID = CustID;
+    ServerHandler(){
         try {
             // Setting Database Connection
             Class.forName("com.mysql.jdbc.Driver");
@@ -106,7 +108,10 @@ public class ServerHandler{
             ResultSet rs = stm1.executeQuery();
             if(rs.next()) {
                 String passcheck = rs.getString("Password_");
-                if (passcheck.equals( pass)) return  true;
+                if (passcheck.equals(pass)){
+                    this.CustID = rs.getInt("CustID");
+                    return  true;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -115,7 +120,7 @@ public class ServerHandler{
         return false;
     }
 
-    public  boolean Register(JsonNode n)throws ClassNotFoundException
+    public  boolean Register(JsonNode n)
     { 
         String email = (String)n.path("Email").asText();
         String name = (String)n.path("Name_").asText();
