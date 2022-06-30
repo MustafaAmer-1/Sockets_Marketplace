@@ -260,5 +260,47 @@ public  JsonNode getAllItems()
 
         return response ;
     }
+
+    public  JsonNode getUserInfo(JsonNode n)
+    {
+        int CustID = (int)n.path("CustID").asInt();
+        //Connection con = connect_db();
+        Statement stm = null;
+        String pass ="";
+        float balance=0;
+        String email="";
+        String name="";
+        JsonNode jsonNode = null;
+        try{
+
+            stm = con.createStatement();
+            String sql = "SELECT * FROM Customer WHERE CustID =?";
+            PreparedStatement stm1 = con.prepareStatement(sql);
+            stm1.setInt(1,CustID);
+            ResultSet rs = stm1.executeQuery();
+            if(rs.next()) {
+                pass = rs.getString("Password_");
+                balance = rs.getFloat("Balance");
+                email= rs.getString("Email");
+                name= rs.getString("Name_");
+            }
+            User u = new User(name,email,pass,balance);
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                String jsonnode = mapper.writeValueAsString (u);
+                jsonNode = mapper.readTree(jsonnode);
+                ((ObjectNode)jsonNode).remove("password");
+                ((ObjectNode)jsonNode).remove("orders");
+                return jsonNode ;
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+return jsonNode;
+    }
 }
 
