@@ -2,7 +2,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.sql.*;
 
 public class ServerHandler{
-    private int CustID = -1
+    private int CustID = -1;
     Connection con;
 
     ServerHandler(int CustID){
@@ -46,4 +46,51 @@ public class ServerHandler{
         System.out.println("Balance Updated Successfully");
         return true;
     }
+
+    public boolean submit_order(JsonNode node){
+        String sql;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        //Check Avaliability
+        for (int i = 0; i < node.size(); i++) {
+             int id = node.required(i).get("id").asInt();
+             int quantity = node.required(i).get("quantity").asInt();
+             sql = "SELECT * FROM Product WHERE PID =?";
+            try {
+                stm = con.prepareStatement(sql);
+                stm.setString(1, String.valueOf(id));
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    if (quantity > rs.getInt("Stock_Quantity")) {
+                            return false;
+                    }
+                }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            //Update Database
+            for (int i = 0; i < node.size(); i++) {
+                int id = node.required(i).get("id").asInt();
+                int quantity = node.required(i).get("quantity").asInt();
+                sql = "UPDATE Product SET Stock_Quantity=Stock_Quantity-?  WHERE PID = ?";
+                try {
+                    stm = con.prepareStatement(sql);
+                    stm.setInt(1, quantity);
+                    stm.setInt(2, id);
+                    stm.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+        return true;
+
+    }
+
+
 }
