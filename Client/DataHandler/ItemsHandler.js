@@ -1,6 +1,5 @@
 const path = require('path')
 class ItemsHandler {
-    // Images are expected to be in base64 encoding 
 
     constructor() {
         this.conn = require(path.join(__dirname, 'ServerConnection'));

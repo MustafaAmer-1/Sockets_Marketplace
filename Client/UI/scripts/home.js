@@ -30,7 +30,7 @@ function showItems(items) {
 
         let node = `
             <div class="pro" data-id=${item.id}>
-                <img src="data:image/webp;base64,${item.image}">
+                <img src="${item.image}">
                 <h1>${item.name}</h1>
                 <p class="price">$${item.price}</p>
                 <div class="qty" data-maxqty=${item.quantity}>
@@ -77,7 +77,7 @@ function decrementQty(e) {
 function HandleTagClick(e) {
     let element = e.target;
     changeActiveElement(element);
-    if(!element.name || element.name == 'home') {
+    if (!element.name || element.name == 'home') {
         itemsHandler.getItems({
             filter: 'all',
             query: '*'
@@ -125,6 +125,7 @@ function logoutCallBack() {
     console.log('Logged out successfully')
     document.location.href = "login.html"
 }
+
 function logoutButtonEvent(e) {
     loginHandler.logout(logoutCallBack)
 }
@@ -144,28 +145,27 @@ function startUp() {
     ProductContainer = document.querySelector('.products-container')
     searchInput = document.getElementById('searchInput')
     addCartButtons = document.getElementsByClassName('.cartBtn')
-    
+
     loginHandler = new LoginHandler()
     logoutBtn.addEventListener('click', logoutButtonEvent)
 
     url = new URL(window.location)
-    if(ProductContainer) {
-        
+    if (ProductContainer) {
+
         itemsHandler = new ItemsHandler();
         cartHandler = new CartHandler()
         tagList.forEach(tag => {
             tag.addEventListener('click', HandleTagClick)
         });
         searchButton.addEventListener('click', searchFor)
-        
+
         let hash = url.hash.substring(1)
         let searchParam = url.searchParams.get('searchQ')
-        if(searchParam) {
+        if (searchParam) {
             searchInput.value = searchParam
             searchFor()
-        }
-        else document.getElementsByName((hash) ? hash: 'home')[0].click()
-        
+        } else document.getElementsByName((hash) ? hash : 'home')[0].click()
+
     } else {
         searchButton.addEventListener('click', otherSearchEvent)
     }
