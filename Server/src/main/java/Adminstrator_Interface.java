@@ -21,7 +21,13 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
 
     Adminstrator_Interface() {
 
-     
+           try {
+            // Setting Database Connection
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Market", "root", "");
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         l0 = new JLabel("System Control");
         l0.setForeground(Color.red);
         l0.setFont(new Font("Serif", Font.BOLD, 20));
