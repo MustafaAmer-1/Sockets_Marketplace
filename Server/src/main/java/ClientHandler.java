@@ -102,8 +102,9 @@ public class ClientHandler implements Runnable{
                     return res;
                 });
 
-        commands.put("logout", // need to set the user cart
+        commands.put("logout",
                 (data) -> {
+                    handler.set_cart(data.get("items"));
                     ObjectNode res = mapper.createObjectNode();
                     res.put("status", true); // should be the operation status
                     return res;
@@ -124,6 +125,15 @@ public class ClientHandler implements Runnable{
                     res.put("status", true); // should be the operation status
                     res.set("items",
                             handler.search_item_name(data.asText()));
+                    return res;
+                });
+
+        commands.put("category",
+                (data) -> {
+                    ObjectNode res = mapper.createObjectNode();
+                    res.put("status", true); // should be the operation status
+                    res.set("items",
+                            handler.search_item_category(data.asText()));
                     return res;
                 });
 

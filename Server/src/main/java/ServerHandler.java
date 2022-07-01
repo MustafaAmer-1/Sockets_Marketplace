@@ -341,21 +341,19 @@ public  JsonNode getAllItems()
 return jsonNode;
     }
 
-    public JsonNode search_item_category(JsonNode node){
+    public JsonNode search_item_category(String category){
         int pid;
         int Stock_Quantity;
         String ImageURL;
         float price;
         String Pname;
         String CatName;
-        String a = node.path("Key").asText();
-        System.out.println(a);
         try{
 
             String sql = "SELECT Pname,Price,Stock_Quantity,ImageURL,CatName, PID " +
                     "FROM Product , Category WHERE Product.CatID =Category.CatID AND Category.CatName LIKE ?";
             PreparedStatement stm1 = con.prepareStatement(sql);
-            stm1.setString (1 ,"%" +a+"%" );
+            stm1.setString (1 ,"%" +category+"%" );
             ResultSet rs = stm1.executeQuery();
             ArrayList<Item> arr= new ArrayList<>();
             while(rs.next()) {
@@ -445,7 +443,7 @@ return jsonNode;
         }
         // Update consist of
         for (int i = 0; i < node.size(); i++) {
-            int id = node.required(i).get("PID").asInt();
+            int id = node.required(i).get("id").asInt();
             int quantity = node.required(i).get("quantity").asInt();
             sql = "INSERT INTO Consists_of(Product_Quantity, CID, PID) VALUES (?,?,?)";
             try {
