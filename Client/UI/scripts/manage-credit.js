@@ -7,6 +7,7 @@ function responseCallBackGenerator(action) {
     return function (reqStatus) {
             if(reqStatus.status) {
             smalltalk.alert('Success', `Successful ${action} operation`).catch(() => console.log('error'))
+            userHandler.getUserInfo(populateBalance)
         } else {
             smalltalk.alert('Error', "Could not perform " + action)
         }
