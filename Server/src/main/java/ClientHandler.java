@@ -1,9 +1,9 @@
+import ServerInterface.AdminInterface;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
@@ -14,6 +14,8 @@ public class ClientHandler implements Runnable{
     private final ServerHandler handler = new ServerHandler();
     private final HashMap<String, RequestCommand> commands = init();
     private static final ObjectMapper mapper = new ObjectMapper();
+    private static final AdminInterface admin = new AdminInterface();
+    private String clientEmail;
 
     public ClientHandler(Socket socket){
         this.socket = socket;
@@ -56,6 +58,17 @@ public class ClientHandler implements Runnable{
         catch (Exception e){
             e.printStackTrace();
         }
+        finally{
+            removeClientFromAdmin();
+        }
+    }
+
+    private synchronized void addClientToAdmin(){
+        admin.addClient(clientEmail);
+    }
+
+    private synchronized void removeClientFromAdmin(){
+        admin.removeClient(clientEmail);
     }
 
     private HashMap<String, RequestCommand> init() {
@@ -66,7 +79,9 @@ public class ClientHandler implements Runnable{
                     boolean auth = handler.Authentication(data);
                     res.put("status", auth);
                     if(auth){
-                       res.set("cart", handler.get_cart());
+                        clientEmail = data.get("email").asText();
+                        addClientToAdmin();
+                        res.set("cart", handler.get_cart());
                     }
                     else{
                         res.put("error", "Invalid Login");
@@ -108,6 +123,7 @@ public class ClientHandler implements Runnable{
                     handler.set_cart(data);
                     ObjectNode res = mapper.createObjectNode();
                     res.put("status", true); // should be the operation status
+                    removeClientFromAdmin();
                     return res;
                 });
 
