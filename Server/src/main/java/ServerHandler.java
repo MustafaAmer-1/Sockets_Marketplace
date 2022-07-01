@@ -70,43 +70,79 @@ public class ServerHandler{
     public boolean submit_order(JsonNode node){
         String sql;
         PreparedStatement stm = null;
+        float total_price = 0;
         ResultSet rs = null;
         //Check Avaliability
         for (int i = 0; i < node.size(); i++) {
-             int id = node.required(i).get("id").asInt();
-             int quantity = node.required(i).get("quantity").asInt();
-             sql = "SELECT * FROM Product WHERE PID =?";
+            int id = node.required(i).get("id").asInt();
+            int quantity = node.required(i).get("quantity").asInt();
+            sql = "SELECT * FROM Product WHERE PID =?";
             try {
                 stm = con.prepareStatement(sql);
                 stm.setString(1, String.valueOf(id));
                 rs = stm.executeQuery();
                 if (rs.next()) {
                     if (quantity > rs.getInt("Stock_Quantity")) {
-                            return false;
+                        return false;
+                    }
+                    else{
+                        total_price += rs.getFloat("Price")*quantity;
                     }
                 }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
 
-            //Update Database
-            for (int i = 0; i < node.size(); i++) {
-                int id = node.required(i).get("id").asInt();
-                int quantity = node.required(i).get("quantity").asInt();
-                sql = "UPDATE Product SET Stock_Quantity=Stock_Quantity-?  WHERE PID = ?";
-                try {
+        }
+
+        sql = "SELECT Balance FROM Customer WHERE CustID=?";
+        try {
+            stm = con.prepareStatement(sql);
+            stm.setInt(1 , CustID);
+            System.out.println(total_price);
+            rs = stm.executeQuery();
+            if(rs.next()){
+                if(total_price > rs.getFloat("Balance")){
+                    return false;
+                }
+                else{
+                    sql = "UPDATE Customer SET Balance = Balance - ? WHERE CustID=?";
                     stm = con.prepareStatement(sql);
-                    stm.setInt(1, quantity);
-                    stm.setInt(2, id);
+                    stm.setFloat(1 , total_price);
+                    stm.setInt(2 , CustID);
                     stm.executeUpdate();
-                } catch (SQLException e) {
-                    e.printStackTrace();
                 }
-
-
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //Update Database
+        for (int i = 0; i < node.size(); i++) {
+            int id = node.required(i).get("id").asInt();
+            int quantity = node.required(i).get("quantity").asInt();
+            sql = "UPDATE Product SET Stock_Quantity=Stock_Quantity-?  WHERE PID = ?";
+            try {
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, quantity);
+                stm.setInt(2, id);
+                stm.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+        sql = "INSERT INTO Orders (Date , CustID) VALUES (? , ?)";
+        try {
+            stm = con.prepareStatement(sql);
+            stm.setString(1, java.time.LocalDate.now().toString());
+            stm.setInt(2, CustID);
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return true;
 
