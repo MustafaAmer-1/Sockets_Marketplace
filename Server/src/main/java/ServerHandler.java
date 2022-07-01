@@ -181,6 +181,7 @@ public  JsonNode getAllItems()
         float price=0;
         String Pname="";
         String CatName ="";
+        int pid = 0;
         JsonNode jsonNode = null;
         try{
 
