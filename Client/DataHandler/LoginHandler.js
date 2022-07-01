@@ -13,9 +13,9 @@ class LoginHandler {
             if(res.status) {
                 res.cart.forEach(function (item, index, array) {
                     this.cartHandler.addItem(item)
-                    if(index == array.length - 1) callback(res)
                 }.bind(this));
             }
+            callback(res)
         }.bind(this)
 
         this.conn.sendRequest({
