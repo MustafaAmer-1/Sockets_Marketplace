@@ -175,12 +175,12 @@ public class ServerHandler{
 
     public  boolean Register(JsonNode n)
     { 
-        String email = (String)n.path("Email").asText();
-        String name = (String)n.path("Name_").asText();
-        String pass = (String)n.path("Password_").asText();
-        String DOB = (String)n.path("DOB").asText();
-        String gender = (String)n.path("Gender").asText();
-        String phonenumber = (String)n.path("Phone_number").asText();
+        String email = (String)n.path("email").asText();
+        String name = (String)n.path("username").asText();
+        String pass = (String)n.path("psw").asText();
+        String DOB = (String)n.path("dob").asText();
+        String gender = (String)n.path("gender").asText();
+        String phonenumber = (String)n.path("phone").asText();
         PreparedStatement stm = null;
         PreparedStatement stm1 = null;
         try{
@@ -308,6 +308,7 @@ public  JsonNode getAllItems()
         float balance=0;
         String email="";
         String name="";
+        String phone = "";
         JsonNode jsonNode = null;
         try{
 
@@ -321,8 +322,9 @@ public  JsonNode getAllItems()
                 balance = rs.getFloat("Balance");
                 email= rs.getString("Email");
                 name= rs.getString("Name_");
+                phone= rs.getString("Phone_Number");
             }
-            User u = new User(name,email,pass,balance);
+            User u = new User(name,email,pass,phone,balance);
             ObjectMapper mapper = new ObjectMapper();
             try {
                 String jsonnode = mapper.writeValueAsString (u);
