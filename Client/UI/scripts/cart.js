@@ -6,7 +6,7 @@ let checkoutBtn;
 var CartHandler = require('../../DataHandler/CartHandler')
 function deleteFromCart(e) {
     let row = e.closest('tr')
-    let id = row.dataset.id
+    let id = parseInt(row.dataset.id)
     cartHandlerC.deleteCartItem(id)
     row.remove()
 }
