@@ -71,6 +71,9 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
                 showTableActiveOrders();
 
             }
+            else if(ae.getSource() == all_orders){
+                showTableAllOrders();
+            }
 
 
         }
@@ -134,7 +137,6 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
     }
 
     public void showTableActiveOrders() {
-        JButton refresh;
         frame1 = new JFrame("Orders History of Active Users");
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame1.setLayout(new BorderLayout());
@@ -176,6 +178,54 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
                 }
 
             }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        frame1.add(scroll);
+        frame1.setVisible(true);
+        frame1.setSize(400, 300);
+    }
+
+    public void showTableAllOrders() {
+        frame1 = new JFrame("Orders History of Active Users");
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame1.setLayout(new BorderLayout());
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new String[]{"OID", "Customer Name", "Customer Email", "Date of Order" , "Total Price"});
+        table = new JTable();
+        table.setModel(model);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setFillsViewportHeight(true);
+        while (table.getRowCount()>0)
+        {
+            table.remove(0);
+        }
+        JScrollPane scroll = new JScrollPane(table);
+        scroll.setHorizontalScrollBarPolicy(
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scroll.setVerticalScrollBarPolicy(
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        int oid;
+        String cname = "";
+        String email = "";
+        Date date;
+        Float price;
+
+        try {
+                pst = con.prepareStatement("select Orders.OID , Customer.Name_ , Customer.Email , Orders.Date_ , Orders.Total_Price  " +
+                        "from Orders , Customer WHERE Orders.CustID = Customer.CustID");
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    oid = rs.getInt("OID");
+                    cname = rs.getString("Name_");
+                    email = rs.getString("Email");
+                    date = rs.getDate("Date_");
+                    price = rs.getFloat("Total_Price");
+
+                    model.addRow(new Object[]{oid,cname, email, date, price});
+                }
+
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
