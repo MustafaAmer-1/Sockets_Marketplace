@@ -392,5 +392,40 @@ return jsonNode;
         return null;
     }
 
+    public boolean set_cart(JsonNode node) {
+        String sql;
+        PreparedStatement stm = null;
+        String sql1 = "DELETE FROM Consists_of WHERE CID =?";
+        try {
+    
+            stm = con.prepareStatement(sql1);
+            stm.setInt(1, CustID);
+            stm.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Update consist of
+        for (int i = 0; i < node.size(); i++) {
+            int id = node.required(i).get("PID").asInt();
+            int quantity = node.required(i).get("quantity").asInt();
+            sql = "INSERT INTO Consists_of(Product_Quantity, CID, PID) VALUES (?,?,?)";
+            try {
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, quantity);
+                stm.setInt(2, CustID);
+                stm.setInt(3, id);
+                stm.executeUpdate();
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+    
+        }
+    
+        return true;
+    
+    }
+
 }
 
