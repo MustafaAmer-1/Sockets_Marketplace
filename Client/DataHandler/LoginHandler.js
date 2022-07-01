@@ -9,11 +9,19 @@ class LoginHandler {
 
     login(userInfo, callback) {
         console.log(userInfo)
+        const innerCallback = function(res) {
+            if(res.status) {
+                res.cart.forEach(function (item, index, array) {
+                    this.cartHandler.addItem(item)
+                    if(index == array.length - 1) callback(res)
+                }.bind(this));
+            }
+        }.bind(this)
 
         this.conn.sendRequest({
             action: 'login',
             data: userInfo
-        }, callback);
+        }, innerCallback);
     }
 
     // data should be the user cart
