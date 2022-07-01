@@ -11,8 +11,8 @@ import java.util.HashMap;
 
 public class ClientHandler implements Runnable{
     private final Socket socket;
-    private static final ServerHandler handler = new ServerHandler();
-    private static final HashMap<String, RequestCommand> commands = init();
+    private final ServerHandler handler = new ServerHandler();
+    private final HashMap<String, RequestCommand> commands = init();
     private static final ObjectMapper mapper = new ObjectMapper();
 
     public ClientHandler(Socket socket){
@@ -21,6 +21,7 @@ public class ClientHandler implements Runnable{
 
     @Override
     public void run() {
+        System.out.println("Client connected: " + Thread.currentThread().getId());
         try {
             InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
@@ -57,7 +58,7 @@ public class ClientHandler implements Runnable{
         }
     }
 
-    private static HashMap<String, RequestCommand> init() {
+    private HashMap<String, RequestCommand> init() {
         HashMap<String, RequestCommand> commands = new HashMap<>();
         commands.put("login",
                 (data) -> {
