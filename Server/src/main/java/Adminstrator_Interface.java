@@ -21,7 +21,7 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
 
     Adminstrator_Interface() {
 
-
+     
         l0 = new JLabel("System Control");
         l0.setForeground(Color.red);
         l0.setFont(new Font("Serif", Font.BOLD, 20));
@@ -62,6 +62,60 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
 
 
     public void showTableUsers() {
+        PreparedStatement pst;
+        String[] columnNames = {
+                "Customer ID", "Name", "Email", "Gender" , "Balance" , "Phone Number" , "Date of Birth"};
+        frame1 = new JFrame("Users List");
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame1.setLayout(new BorderLayout());
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(columnNames);
+        table = new JTable();
+        table.setModel(model);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setFillsViewportHeight(true);
+        JScrollPane scroll = new JScrollPane(table);
+        scroll.setHorizontalScrollBarPolicy(
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scroll.setVerticalScrollBarPolicy(
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        int custID = 0;
+        String custName = "";
+        String email = "";
+        String gender = "";
+        float Balance = 0;
+        String pNo = "";
+        Date DOB = null;
+        try {
+            String sql = "select * from Customer";
+            pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            int i = 0;
+            if (rs.next()) {
+                custID = rs.getInt("CustID");
+                custName = rs.getString("Name_");
+                email = rs.getString("Email");
+                gender = rs.getString("Gender");
+                Balance = rs.getLong("Balance");
+                pNo = rs.getString("Phone_number");
+                DOB = rs.getDate("DOB");
+                model.addRow(new Object[]{custID, custName, email, gender, Balance, pNo, DOB});
+                i++;
+            }
+            if (i < 1) {
+                JOptionPane.showMessageDialog(null, "No Record Found", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            if (i == 1) {
+                System.out.println(i + " Record Found");
+            } else {
+                System.out.println(i + " Records Found");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        frame1.add(scroll);
+        frame1.setVisible(true);
+        frame1.setSize(800, 400);
 
     }
 
