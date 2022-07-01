@@ -76,7 +76,8 @@ public class ClientHandler implements Runnable{
         commands.put("order",
                 (data) -> {
                     ObjectNode res = mapper.createObjectNode();
-                    res.put("status", handler.submit_order(data));
+                    res.put("status", handler.submit_order(
+                            data.get("items")));
                     return res;
                 });
 
@@ -116,6 +117,20 @@ public class ClientHandler implements Runnable{
                             handler.getAllItems());
                     return res;
                 });
+
+        commands.put("search",
+                (data) -> {
+                    ObjectNode res = mapper.createObjectNode();
+                    res.put("status", true); // should be the operation status
+                    res.set("items",
+                            handler.search_item_name(data.asText()));
+                    return res;
+                });
+
+        commands.put("userinfo",
+                (data) ->
+                    handler.getUserInfo()
+                );
 
         return commands;
     }

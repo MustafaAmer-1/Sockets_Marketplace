@@ -218,6 +218,7 @@ public  JsonNode getAllItems()
     }
 
     public  JsonNode get_cart(){
+        int pid;
         int Product_Quantity;
         String ImageURL;
         float price;
@@ -228,7 +229,7 @@ public  JsonNode getAllItems()
         try{
 
 
-            String sql = "SELECT CatName,Pname,Price,product_Quantity,ImageURL " +
+            String sql = "SELECT CatName,Pname,Price,product_Quantity,ImageURL, PID " +
                          "FROM Product , Category , Consists_of " +
                          "WHERE Product.CatID =Category.CatID AND Product.PID = Consists_of.PID AND Consists_of.CID = ?";
 
@@ -239,12 +240,13 @@ public  JsonNode getAllItems()
             ResultSet rs = stm.executeQuery();
             ArrayList<Item> arr= new ArrayList<>();
             while(rs.next()) {
+                pid = rs.getInt("PID");
                 Pname = rs.getString("Pname");
                 price = rs.getFloat("Price");
                 Product_Quantity = rs.getInt("Product_Quantity");
                 CatName= rs.getString("CatName");
                 ImageURL=rs.getString("ImageURL");
-                Item item = new Item(Pname,price,Product_Quantity,ImageURL,CatName);
+                Item item = new Item(pid, Pname,price,Product_Quantity,ImageURL,CatName);
                 arr.add(item);
             }
             ObjectMapper mapper = new ObjectMapper();
@@ -263,10 +265,8 @@ public  JsonNode getAllItems()
         return response ;
     }
 
-    public  JsonNode getUserInfo(JsonNode n)
+    public  JsonNode getUserInfo()
     {
-        int CustID = (int)n.path("CustID").asInt();
-        //Connection con = connect_db();
         Statement stm = null;
         String pass ="";
         float balance=0;
@@ -306,6 +306,7 @@ return jsonNode;
     }
 
     public JsonNode search_item_category(JsonNode node){
+        int pid;
         int Stock_Quantity;
         String ImageURL;
         float price;
@@ -315,19 +316,20 @@ return jsonNode;
         System.out.println(a);
         try{
 
-            String sql = "SELECT Pname,Price,Stock_Quantity,ImageURL,CatName " +
+            String sql = "SELECT Pname,Price,Stock_Quantity,ImageURL,CatName, PID " +
                     "FROM Product , Category WHERE Product.CatID =Category.CatID AND Category.CatName LIKE ?";
             PreparedStatement stm1 = con.prepareStatement(sql);
             stm1.setString (1 ,"%" +a+"%" );
             ResultSet rs = stm1.executeQuery();
             ArrayList<Item> arr= new ArrayList<>();
             while(rs.next()) {
+                pid = rs.getInt("PID");
                 Pname = rs.getString("Pname");
                 price = rs.getFloat("Price");
                 Stock_Quantity= rs.getInt("Stock_Quantity");
                 CatName= rs.getString("CatName");
                 ImageURL=rs.getString("ImageURL");
-                Item arr1 = new Item(Pname,price,Stock_Quantity,ImageURL,CatName);
+                Item arr1 = new Item(pid, Pname,price,Stock_Quantity,ImageURL,CatName);
                 arr.add(arr1);
             }
             ObjectMapper mapper = new ObjectMapper();
@@ -349,28 +351,29 @@ return jsonNode;
     }
 
 
-    public JsonNode search_item_name(JsonNode node){
+    public JsonNode search_item_name(String name){
+        int pid;
         int Stock_Quantity;
         String ImageURL;
         float price;
         String Pname;
         String CatName;
-        String a = node.path("Key").asText();
         try{
 
-            String sql = "SELECT CatName,Pname,Price,Stock_Quantity,ImageURL " +
+            String sql = "SELECT CatName,Pname,Price,Stock_Quantity,ImageURL, pid " +
                     "FROM Product , Category WHERE Product.CatID =Category.CatID AND Pname LIKE ?";
             PreparedStatement stm1 = con.prepareStatement(sql);
-            stm1.setString (1 ,"%" +a+"%" );
+            stm1.setString (1 ,"%" +name+"%" );
             ResultSet rs = stm1.executeQuery();
             ArrayList<Item> arr= new ArrayList<>();
             while(rs.next()) {
+                pid = rs.getInt("PID");
                 Pname = rs.getString("Pname");
                 price = rs.getFloat("Price");
                 Stock_Quantity= rs.getInt("Stock_Quantity");
                 CatName= rs.getString("CatName");
                 ImageURL=rs.getString("ImageURL");
-                Item arr1 = new Item(Pname,price,Stock_Quantity,ImageURL,CatName);
+                Item arr1 = new Item(pid, Pname,price,Stock_Quantity,ImageURL,CatName);
                 arr.add(arr1);
             }
             ObjectMapper mapper = new ObjectMapper();

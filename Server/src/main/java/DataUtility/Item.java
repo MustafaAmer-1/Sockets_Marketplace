@@ -1,27 +1,21 @@
 package DataUtility;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Item {
     private String name;
     private float price;
     private int quantity;
-    private String imgURL;
+    private String image;
     private String category;
-    private int pid;
+    private int id;
 
-    public Item(int PID,String name, float price, int quantity, String imgURL, String categories) {
+    public Item(int id, String name, float price, int quantity, String image, String category) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
-        this.imgURL = imgURL;
-        this.categories = categories;
-        this.pid = PID;
+        this.image = image;
+        this.category = category;
+        this.id = id;
     }
-    public int getPid(){
-         return pid; 
-        }
 
     public String getName() {
         return name;
@@ -35,8 +29,8 @@ public class Item {
         return quantity;
     }
 
-    public String getImgURL() {
-        return imgURL;
+    public String getImage() {
+        return image;
     }
 
     public String getCategory() {
@@ -55,7 +49,7 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public void setImgURL(String imgURL) {
-        this.imgURL = imgURL;
+    public void setImage(String image) {
+        this.image = image;
     }
 }
