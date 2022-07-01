@@ -1,21 +1,20 @@
 package DataUtility;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Item {
     private String name;
     private float price;
     private int quantity;
-    private String imgURL;
-    private ArrayList<String> categories;
+    private String image;
+    private String category;
+    private int id;
 
-    public Item(String name, float price, int quantity, String imgURL, String ... categories) {
+    public Item(int id, String name, float price, int quantity, String image, String category) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
-        this.imgURL = imgURL;
-        this.categories = new ArrayList<>(Arrays.asList(categories));
+        this.image = image;
+        this.category = category;
+        this.id = id;
     }
 
     public String getName() {
@@ -30,12 +29,12 @@ public class Item {
         return quantity;
     }
 
-    public String getImgURL() {
-        return imgURL;
+    public String getImage() {
+        return image;
     }
 
-    public String[] getCategories() {
-        return (String[]) categories.toArray();
+    public String getCategory() {
+        return category;
     }
 
     public void setName(String name) {
@@ -50,15 +49,7 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public void setImgURL(String imgURL) {
-        this.imgURL = imgURL;
-    }
-
-    public void addToCategory(String category){
-        this.categories.add(category);
-    }
-
-    public void removeFromCategory(String category){
-        this.categories.remove(category);
+    public void setImage(String image) {
+        this.image = image;
     }
 }

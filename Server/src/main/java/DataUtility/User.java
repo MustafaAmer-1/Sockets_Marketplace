@@ -4,17 +4,19 @@ import java.util.ArrayList;
 
 public class User {
     private final String name;
-    private String Username;
+    private String email;
     private String Password;
-    private int Balance;
+    private float Balance;
+    private String phone;
     private final Cart mCart;
     private final ArrayList<Order> orders = new ArrayList<Order>();
 
-    public User(String name, String username, String password, int balance) {
+    public User(String name, String email, String password, String phone, float balance) {
         this.name = name;
-        Username = username;
+        this.email = email;
         Password = password;
         Balance = balance;
+        this.phone = phone;
         mCart = new Cart();
     }
 
@@ -26,20 +28,20 @@ public class User {
         return name;
     }
 
-    public String getUsername() {
-        return Username;
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {
         return Password;
     }
 
-    public int getBalance() {
+    public float getBalance() {
         return Balance;
     }
 
-    public void setUsername(String username) {
-        Username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setPassword(String password) {

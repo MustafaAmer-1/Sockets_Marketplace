@@ -7,7 +7,7 @@ class RegisterHandler {
     register(userInfo, callback) {
 
         // userInfo Example 
-        //{ username: "jewbgjew", email: "kwgne", psw: "wejggle", age: "22", gender: "Male", phone: "33" }
+        //{ username: "jewbgjew", email: "kwgne", psw: "wejggle", dob: "1-2-2001", gender: "Male", phone: "33" }
         //send data
         // return if register is successful otherwise false
         // returns {status: true}
