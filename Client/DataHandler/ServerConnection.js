@@ -1,30 +1,31 @@
-const net = require('net');
-let conn;
-if (!conn) {
-    conn = net.createConnection(9000, "localhost", () => {
-        console.log('Connected to server\n');
-    });
-}
+const ipcRenderer  = require('electron').ipcRenderer
 
+async function dummy() {
+    await reveive()
+}
+dummy()
 let resQue = [];
 
 function sendRequest(req, callback) {
-    console.log("request: " + req);
-    conn.write(JSON.stringify(req) + '\n');
-    resQue.push(callback);
+    console.log('data to sent ', req)
+    ipcRenderer.send('sendServer', req)
+    resQue.push(callback)
 }
 
-conn.on('data', (data) => {
-    console.log("response: " + data.toString('utf-8'));
-    if (resQue.length) {
-        let res = resQue.shift();
-        data = data.toString('utf-8');
-        res(JSON.parse(data));
-    }
-});
+async function reveive() {
+    ipcRenderer.on("sendRender", (_event, res) => {
+        console.log('recieved: ', res)
+        if(resQue.length) {
+            let resCallback = resQue.shift()
+            resCallback(res)
+        }
+    })
+    return
+}
+
 
 const onExit = function() {
-    conn.write("BYE\n");
+    sendRequest("BYE")
 }
 
 exports.sendRequest = sendRequest;
