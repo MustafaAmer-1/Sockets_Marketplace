@@ -132,11 +132,12 @@ public class ServerHandler{
 
         }
 
-        sql = "INSERT INTO Orders (Date , CustID) VALUES (? , ?)";
+        sql = "INSERT INTO Orders (Date , CustID , Total_Cost) VALUES (? , ? , ?)";
         try {
             stm = con.prepareStatement(sql);
             stm.setString(1, java.time.LocalDate.now().toString());
             stm.setInt(2, CustID);
+            stm.setFloat(3, total_price);
             stm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
