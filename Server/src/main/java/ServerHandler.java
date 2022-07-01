@@ -185,18 +185,18 @@ public  JsonNode getAllItems()
         try{
 
             stm = con.createStatement();
-            String sql = "SELECT CatName,Pname,Price,Stock_Quantity,ImageURL FROM Product , Category WHERE Product.CatID =Category.CatID";
+            String sql = "SELECT CatName,Pname,Price,Stock_Quantity,ImageURL,PID FROM Product , Category WHERE Product.CatID =Category.CatID";
             PreparedStatement stm1 = con.prepareStatement(sql);
             ResultSet rs = stm1.executeQuery();
             ArrayList<Item> arr= new ArrayList<>();
-            int i=0;
             while(rs.next()) {
                 Pname = rs.getString("Pname");
                 price = rs.getFloat("Price");
                 Stock_Quantity= rs.getInt("Stock_Quantity");
                 CatName= rs.getString("CatName");
                 ImageURL=rs.getString("ImageURL");
-                Item arr1 = new Item(Pname,price,Stock_Quantity,ImageURL,CatName);
+                pid = rs.getInt("PID");
+                Item arr1 = new Item(pid,Pname,price,Stock_Quantity,ImageURL,CatName);
                 arr.add(arr1);
             }
             ObjectMapper mapper = new ObjectMapper();

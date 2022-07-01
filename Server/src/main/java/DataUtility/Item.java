@@ -9,14 +9,19 @@ public class Item {
     private int quantity;
     private String imgURL;
     private String category;
+    private int pid;
 
-    public Item(String name, float price, int quantity, String imgURL, String category) {
+    public Item(int PID,String name, float price, int quantity, String imgURL, String categories) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.imgURL = imgURL;
-        this.category = category;
+        this.categories = categories;
+        this.pid = PID;
     }
+    public int getPid(){
+         return pid; 
+        }
 
     public String getName() {
         return name;
