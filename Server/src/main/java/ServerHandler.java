@@ -265,7 +265,7 @@ public  JsonNode getAllItems()
         try{
 
 
-            String sql = "SELECT CatName,Pname,Price,product_Quantity,ImageURL, PID " +
+            String sql = "SELECT CatName,Pname,Price,product_Quantity,ImageURL, Product.PID " +
                          "FROM Product , Category , Consists_of " +
                          "WHERE Product.CatID =Category.CatID AND Product.PID = Consists_of.PID AND Consists_of.CID = ?";
 

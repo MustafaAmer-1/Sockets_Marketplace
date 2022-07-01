@@ -36,6 +36,10 @@ public class User {
         return Password;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
     public float getBalance() {
         return Balance;
     }
