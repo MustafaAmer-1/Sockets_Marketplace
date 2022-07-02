@@ -1,4 +1,4 @@
-import ServerInterface.AdminInterface;
+import ServerInterface.Adminstrator_Interface;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -14,7 +14,6 @@ public class ClientHandler implements Runnable{
     private final ServerHandler handler = new ServerHandler();
     private final HashMap<String, RequestCommand> commands = init();
     private static final ObjectMapper mapper = new ObjectMapper();
-    private static final AdminInterface admin = new AdminInterface();
     private String clientEmail;
 
     public ClientHandler(Socket socket){
@@ -64,11 +63,11 @@ public class ClientHandler implements Runnable{
     }
 
     private synchronized void addClientToAdmin(){
-        admin.addClient(clientEmail);
+        Adminstrator_Interface.addClient(clientEmail);
     }
 
     private synchronized void removeClientFromAdmin(){
-        admin.removeClient(clientEmail);
+        Adminstrator_Interface.removeClient(clientEmail);
     }
 
     private HashMap<String, RequestCommand> init() {

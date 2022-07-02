@@ -1,3 +1,4 @@
+import ServerInterface.AdminManager;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -10,6 +11,8 @@ public class ServerController {
     private static ExecutorService executor = Executors.newCachedThreadPool();
 
     public static void main(String[] args) throws IOException {
+        AdminManager manager = new AdminManager();
+        manager.start();
         ServerSocket serversocket = new ServerSocket(PORT);
 
         while (true) {
