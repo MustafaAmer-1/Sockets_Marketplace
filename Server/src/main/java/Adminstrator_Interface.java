@@ -218,7 +218,7 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
 
         try {
             for(int j=0 ; j < user_emails.length; j++) {
-                pst = con.prepareStatement("select Orders.OID , Customer.Name_ , Customer.Email , Orders.Date_ , Orders.Total_Price  " +
+                pst = con.prepareStatement("select Orders.OID , Customer.Name_ , Customer.Email , Orders.Date , Orders.Total_Cost  " +
                         "from Orders , Customer WHERE Customer.Email = ? and Orders.CustID = Customer.CustID");
                 pst.setString(1 , user_emails[j]);
                 ResultSet rs = pst.executeQuery();
@@ -226,8 +226,8 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
                     oid = rs.getInt("OID");
                     cname = rs.getString("Name_");
                     email = rs.getString("Email");
-                    date = rs.getDate("Date_");
-                    price = rs.getFloat("Total_Price");
+                    date = rs.getDate("Date");
+                    price = rs.getFloat("Total_Cost");
 
                     model.addRow(new Object[]{oid,cname, email, date, price});
                 }
@@ -266,15 +266,15 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
         Float price;
 
         try {
-                pst = con.prepareStatement("select Orders.OID , Customer.Name_ , Customer.Email , Orders.Date_ , Orders.Total_Price  " +
+                pst = con.prepareStatement("select Orders.OID , Customer.Name_ , Customer.Email , Orders.Date , Orders.Total_Cost  " +
                         "from Orders , Customer WHERE Orders.CustID = Customer.CustID");
                 ResultSet rs = pst.executeQuery();
                 while (rs.next()) {
                     oid = rs.getInt("OID");
                     cname = rs.getString("Name_");
                     email = rs.getString("Email");
-                    date = rs.getDate("Date_");
-                    price = rs.getFloat("Total_Price");
+                    date = rs.getDate("Date");
+                    price = rs.getFloat("Total_Cost");
 
                     model.addRow(new Object[]{oid,cname, email, date, price});
                 }
