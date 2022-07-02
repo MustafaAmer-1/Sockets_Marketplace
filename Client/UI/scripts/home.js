@@ -30,7 +30,7 @@ function showItems(items) {
 
         let node = `
             <div class="pro" data-id=${item.id}>
-                <img src="${item.image}">
+                <img class="Itm" src="${item.image}">
                 <h1>${item.name}</h1>
                 <p class="price">$${item.price}</p>
                 <div class="qty" data-maxqty=${item.quantity}>

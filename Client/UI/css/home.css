@@ -7,6 +7,13 @@
   height: 65px;
 }
 
+.Itm {
+  height: 327px;
+  width: 240px;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
 .topnav a {
   float: left;
   display: block;
