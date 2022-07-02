@@ -159,6 +159,15 @@ public class ClientHandler implements Runnable{
                     handler.getUserInfo()
                 );
 
+        commands.put("orders_history",
+                (data) -> {
+                    ObjectNode res = mapper.createObjectNode();
+                    res.put("status", true); // should be the operation status
+                    res.set("orders",
+                            handler.getCustomerHistory());
+                    return res;
+                });
+
         return commands;
     }
 }

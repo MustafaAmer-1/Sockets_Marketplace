@@ -465,9 +465,8 @@ return jsonNode;
     
     }
 
-    public JsonNode getCustomerHistory(int custid)
+    public JsonNode getCustomerHistory()
     {
-        int CustID = custid;
         Statement stm = null;
         int Stock_Quantity=0;
         String ImageURL ="";
@@ -490,7 +489,7 @@ return jsonNode;
             while(rs.next()) {
                 int oid = rs.getInt("Orders.OID");
                 float cost = rs.getFloat("Orders.Total_Cost");
-                int custid1 = custid;
+                int custid1 = CustID;
                 Order o = new Order(oid,custid1,cost);
                 String sql = "SELECT Product.Pname,Contain.Order_Quantity,Category.CatName,Product.Price,Product.Stock_Quantity,Product.ImageURL,Product.PID FROM Orders ,Contain,Product,Category  WHERE  Contain.PID =Product.PID AND Orders.OID =Contain.OID AND Product.CatID =Category.CatID  AND Orders.OID =?";
                 PreparedStatement stm1 = con.prepareStatement(sql);
@@ -520,20 +519,6 @@ return jsonNode;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
-            try{
-                if(stm!=null)
-                    con.close();
-            }catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try{
-                if(con!=null)
-                    con.close();
-            }catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return jsonNode;
     }

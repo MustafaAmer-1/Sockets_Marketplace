@@ -5,7 +5,7 @@ class OrdersHistoryHandler {
         this.conn = require(path.join(__dirname, 'ServerConnection'));
     }
 
-    /* getOrdersHistory(callback) {
+    getOrdersHistory(callback) {
         this.conn.sendRequest({
             action: 'orders_history'
         }, (res) => {
@@ -15,8 +15,9 @@ class OrdersHistoryHandler {
                 console.log(res.error);
             }
         });
-    } */
+    }
 
+    /* 
     getOrdersHistory(callback) {
         const res = {
             status: true,
@@ -64,6 +65,7 @@ class OrdersHistoryHandler {
         }
         callback(res.orders);
     }
+        */
 }
 
 module.exports = OrdersHistoryHandler
