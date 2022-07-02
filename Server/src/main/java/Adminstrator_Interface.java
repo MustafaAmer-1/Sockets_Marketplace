@@ -15,14 +15,14 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
     JButton active_users;
     JButton active_orders, all_orders , all_users ;
     Connection con;
-    String[] user_emails = {"amer@gmail.com" , "moatsm@gmail.com"};;
+    String[] user_emails = {"test@test.net"};
     String from;
     PreparedStatement pst;
 
 
     Adminstrator_Interface() {
 
-           try {
+        try {
             // Setting Database Connection
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Market", "root", "");
@@ -59,20 +59,20 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
     }
 
 
-        public void actionPerformed (ActionEvent ae){
-            if (ae.getSource() == all_users) {
-                showTableAllUsers();
-            }
-            else if(ae.getSource() == active_users){
-                showTableActiveUsers();
-            }
-            else if (ae.getSource() == active_orders) {
-                showTableAllOrders();
-            }
-            else if(ae.getSource() == all_orders){
-                showTableAllOrders();
-            }
+    public void actionPerformed (ActionEvent ae){
+        if (ae.getSource() == all_users) {
+            showTableAllUsers();
         }
+        else if(ae.getSource() == active_users){
+            showTableActiveUsers();
+        }
+        else if (ae.getSource() == active_orders) {
+            showTableActiveOrders();
+        }
+        else if(ae.getSource() == all_orders){
+            showTableAllOrders();
+        }
+    }
 
     public void showTableActiveUsers() {
         String[] columnNames = {
@@ -100,15 +100,16 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
         try {
             String sql = "select * from Customer WHERE Email IN (";
             for(int i = 0; i < user_emails.length; i++){
-                sql += "\"" + user_emails[i] + "\"";
+                sql += "\'" + user_emails[i] + "\'";
                 if(i < user_emails.length - 1)
                     sql += ", ";
             }
-            sql += ")";
-            pst = con.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
+            sql += ");";
+            System.out.println(sql);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
             int i = 0;
-            if (rs.next()) {
+            while (rs.next()) {
                 custID = rs.getInt("CustID");
                 custName = rs.getString("Name_");
                 email = rs.getString("Email");
@@ -160,11 +161,11 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
         String pNo = "";
         String DOB = "";
         try {
-            String sql = "select * from Customer";
+            String sql = "SELECT * FROM Customer;";
             pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             int i = 0;
-            if (rs.next()) {
+            while (rs.next()) {
                 custID = rs.getInt("CustID");
                 custName = rs.getString("Name_");
                 email = rs.getString("Email");
@@ -219,7 +220,7 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
         try {
             for(int j=0 ; j < user_emails.length; j++) {
                 pst = con.prepareStatement("select Orders.OID , Customer.Name_ , Customer.Email , Orders.Date , Orders.Total_Cost  " +
-                        "from Orders , Customer WHERE Customer.Email = ? and Orders.CustID = Customer.CustID");
+                        "from Orders, Customer WHERE Customer.Email = ? and Orders.CustID = Customer.CustID");
                 pst.setString(1 , user_emails[j]);
                 ResultSet rs = pst.executeQuery();
                 while (rs.next()) {
@@ -266,18 +267,18 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
         Float price;
 
         try {
-                pst = con.prepareStatement("select Orders.OID , Customer.Name_ , Customer.Email , Orders.Date , Orders.Total_Cost  " +
-                        "from Orders , Customer WHERE Orders.CustID = Customer.CustID");
-                ResultSet rs = pst.executeQuery();
-                while (rs.next()) {
-                    oid = rs.getInt("OID");
-                    cname = rs.getString("Name_");
-                    email = rs.getString("Email");
-                    date = rs.getDate("Date");
-                    price = rs.getFloat("Total_Cost");
+            pst = con.prepareStatement("select Orders.OID , Customer.Name_ , Customer.Email , Orders.Date , Orders.Total_Cost " +
+                    "from Orders , Customer WHERE Orders.CustID = Customer.CustID");
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                oid = rs.getInt("OID");
+                cname = rs.getString("Name_");
+                email = rs.getString("Email");
+                date = rs.getDate("Date");
+                price = rs.getFloat("Total_Cost");
 
-                    model.addRow(new Object[]{oid,cname, email, date, price});
-                }
+                model.addRow(new Object[]{oid,cname, email, date, price});
+            }
 
 
         } catch (Exception ex) {
@@ -289,10 +290,10 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
     }
 
 
-        public static void main (String[] args){
+    public static void main (String[] args){
 
-            new Adminstrator_Interface();
+        new Adminstrator_Interface();
 
-        }
+    }
 
 }
