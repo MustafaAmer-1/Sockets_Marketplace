@@ -1,3 +1,4 @@
+import DataUtility.Order;
 import DataUtility.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -132,11 +133,12 @@ public class ServerHandler{
 
         }
 
-        sql = "INSERT INTO Orders (Date , CustID) VALUES (? , ?)";
+        sql = "INSERT INTO Orders (Date , CustID , Total_Cost) VALUES (? , ? , ?)";
         try {
             stm = con.prepareStatement(sql);
             stm.setString(1, java.time.LocalDate.now().toString());
             stm.setInt(2, CustID);
+            stm.setFloat(3, total_price);
             stm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -461,6 +463,79 @@ return jsonNode;
     
         return true;
     
+    }
+
+    public JsonNode getCustomerHistory(int custid)
+    {
+        int CustID = custid;
+        Statement stm = null;
+        int Stock_Quantity=0;
+        String ImageURL ="";
+        float price=0;
+        String Pname="";
+        String CatName ="";
+        int pid = 0;
+
+        JsonNode jsonNode = null;
+        try{
+
+            stm = con.createStatement();
+
+
+            String sql2 = "SELECT Orders.OID ,Orders.Total_Cost FROM Orders WHERE   CustID =?";
+            PreparedStatement stm2 = con.prepareStatement(sql2);
+            stm2.setInt(1,CustID);
+            ResultSet rs = stm2.executeQuery();
+            ArrayList<Order> r = new ArrayList<>();
+            while(rs.next()) {
+                int oid = rs.getInt("Orders.OID");
+                float cost = rs.getFloat("Orders.Total_Cost");
+                int custid1 = custid;
+                Order o = new Order(oid,custid1,cost);
+                String sql = "SELECT Product.Pname,Contain.Order_Quantity,Category.CatName,Product.Price,Product.Stock_Quantity,Product.ImageURL,Product.PID FROM Orders ,Contain,Product,Category  WHERE  Contain.PID =Product.PID AND Orders.OID =Contain.OID AND Product.CatID =Category.CatID  AND Orders.OID =?";
+                PreparedStatement stm1 = con.prepareStatement(sql);
+                stm1.setInt(1,oid);
+                ResultSet rs2 = stm1.executeQuery();
+                while(rs2.next()) {
+                    Pname = rs2.getString("Pname");
+                    price = rs2.getFloat("Price");
+                    Stock_Quantity= rs2.getInt("Stock_Quantity");
+                    CatName= rs2.getString("CatName");
+                    ImageURL=rs2.getString("ImageURL");
+                    pid = rs2.getInt("PID");
+                    o.additem(pid,Pname,price,Stock_Quantity,ImageURL,CatName);
+                }
+                r.add(o);
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                String jsonnode = mapper.writeValueAsString (r);
+                jsonNode = mapper.readTree(jsonnode);
+                //((ObjectNode)jsonNode).remove("pid");
+                //((ObjectNode)jsonNode).remove("dateCreated");
+                return jsonNode ;
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if(stm!=null)
+                    con.close();
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try{
+                if(con!=null)
+                    con.close();
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return jsonNode;
     }
 
 }
