@@ -25,7 +25,7 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
            try {
             // Setting Database Connection
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/market", "root", "1234");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Market", "root", "");
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -60,30 +60,86 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
 
 
         public void actionPerformed (ActionEvent ae){
-            if (ae.getSource() == active_users) {
-
-                showTableActiveUsers();
-
+            if (ae.getSource() == all_users) {
+                showTableAllUsers();
             }
-
+            else if(ae.getSource() == active_users){
+                showTableActiveUsers();
+            }
             else if (ae.getSource() == active_orders) {
-
-                showTableActiveOrders();
-
+                showTableAllOrders();
             }
             else if(ae.getSource() == all_orders){
                 showTableAllOrders();
             }
-
-
         }
-
 
     public void showTableActiveUsers() {
         String[] columnNames = {
                 "Customer ID", "Name", "Email", "Gender" , "Balance" , "Phone Number" , "Date of Birth"};
+        frame1 = new JFrame("Active Users List");
+        frame1.setLayout(new BorderLayout());
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(columnNames);
+        table = new JTable();
+        table.setModel(model);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setFillsViewportHeight(true);
+        JScrollPane scroll = new JScrollPane(table);
+        scroll.setHorizontalScrollBarPolicy(
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scroll.setVerticalScrollBarPolicy(
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        int custID = 0;
+        String custName = "";
+        String email = "";
+        String gender = "";
+        float Balance = 0;
+        String pNo = "";
+        String DOB = "";
+        try {
+            String sql = "select * from Customer WHERE Email IN (";
+            for(int i = 0; i < user_emails.length; i++){
+                sql += "\"" + user_emails[i] + "\"";
+                if(i < user_emails.length - 1)
+                    sql += ", ";
+            }
+            sql += ")";
+            pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            int i = 0;
+            if (rs.next()) {
+                custID = rs.getInt("CustID");
+                custName = rs.getString("Name_");
+                email = rs.getString("Email");
+                gender = rs.getString("Gender");
+                Balance = rs.getLong("Balance");
+                pNo = rs.getString("Phone_number");
+                DOB = rs.getString("DOB");
+                model.addRow(new Object[]{custID, custName, email, gender, Balance, pNo, DOB});
+                i++;
+            }
+            if (i < 1) {
+                JOptionPane.showMessageDialog(null, "No Record Found", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            if (i == 1) {
+                System.out.println(i + " Record Found");
+            } else {
+                System.out.println(i + " Records Found");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        frame1.add(scroll);
+        frame1.setVisible(true);
+        frame1.setSize(800, 400);
+
+    }
+
+    public void showTableAllUsers() {
+        String[] columnNames = {
+                "Customer ID", "Name", "Email", "Gender" , "Balance" , "Phone Number" , "Date of Birth"};
         frame1 = new JFrame("Users List");
-        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame1.setLayout(new BorderLayout());
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(columnNames);
@@ -138,7 +194,6 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
 
     public void showTableActiveOrders() {
         frame1 = new JFrame("Orders History of Active Users");
-        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame1.setLayout(new BorderLayout());
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new String[]{"OID", "Customer Name", "Customer Email", "Date of Order" , "Total Price"});
@@ -188,7 +243,6 @@ public class Adminstrator_Interface extends JFrame implements ActionListener {
 
     public void showTableAllOrders() {
         frame1 = new JFrame("Orders History of Active Users");
-        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame1.setLayout(new BorderLayout());
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new String[]{"OID", "Customer Name", "Customer Email", "Date of Order" , "Total Price"});
